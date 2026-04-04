@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EGAM Ministry Portal | Dashboard</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23b22234'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='gold' font-weight='bold'%3EGA%3C/text%3E%3C/svg%3E" type="image/x-icon">
+    <!-- Bootstrap & Font Awesome & Custom Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.mCustomScrollbar/3.1.5/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+    <!-- Custom Theme Style (mimics original) -->
+    <style>
+        body {
+            background: #F7F9FC;
+            font-family: "Source Sans Pro", sans-serif;
+        }
+        .main_container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .left_col {
+            background: #2A3F54;
+            width: 230px;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+        }
+        .right_col {
+            margin-left: 230px;
+            padding: 20px;
+            width: calc(100% - 230px);
+        }
+        .top_nav {
+            background: #EDEDED;
+            padding: 0 20px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 230px;
+            z-index: 1000;
+            height: 60px;
+            line-height: 60px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .nav_menu {
+            display: flex;
+            justify-content: space-between;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+        }
+        .side-menu {
+            list-style: none;
+            padding: 0;
+        }
+        .side-menu li a {
+            color: #fff;
+            display: block;
+            padding: 12px 15px;
+            font-size: 14px;
+        }
+        .side-menu li a:hover {
+            background: #1D2F3E;
+        }
+        .menu_section {
+            margin-top: 20px;
+        }
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .card-footer {
+            background: #28a745;
+            color: white;
+        }
+        footer {
+            background: #fff;
+            padding: 15px;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+        }
+        @media (max-width: 768px) {
+            .left_col { width: 70px; }
+            .right_col, .top_nav { margin-left: 70px; left: 70px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid p-0">
+    <div class="main_container">
+        <!-- Sidebar -->
+        <div class="left_col">
+            <div class="profile clearfix mt-3 text-center">
+                <img src="img/egamlogo.png" id="sidebarAvatar" alt="Avatar" class="rounded-circle" width="60" height="60">
+                <div class="text-white mt-2"><span id="sidebarName">User</span></div>
+            </div>
+            <div id="sidebar-menu" class="main_menu_side">
+                <div class="menu_section">
+                    <ul class="nav side-menu">
+                        <li><a href="dashboard.html"><i class="fa fa-home"></i> Dashboard</a></li>
+                        <li><a href="#"><i class="fa fa-print"></i> Print Slip</a></li>
+                        <li><a href="exam_new.html"><i class="fa fa-pencil"></i> Write Exam</a></li>
+                        <li style="background-color: #df628e;"><a href="index.html" id="logoutBtn"><i class="fa fa-sign-out"></i> Sign Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <div class="nav toggle">
+                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <ul class="navbar-nav flex-row">
+                    <li class="nav-item mr-3">
+                        <h5 class="text-danger"><img src="img/egamlogo.png" alt="Logo" height="40" width="40"> <span class="text-success">EGAM MINISTRY Portal</span></h5>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="user-profile dropdown-toggle" data-toggle="dropdown">
+                            <img id="topAvatar" src="img/default-avatar.png" width="35" height="35" class="rounded-circle"> <span id="topUserName">User</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="index.html" id="logoutTop"><i class="fa fa-sign-out"></i> Log Out</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="right_col">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <img id="profileImage" src="img/default-avatar.png" class="rounded-circle" width="120" height="120">
+                            <h3 class="mt-2">Hello, <strong id="userFullName">User</strong></h3>
+                            <span>Welcome to your EGAM Ministry portal – your details are shown below.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body text-danger text-center">
+                            <h5 id="regNumberDisplay">EGAM/2025/XXXX</h5>
+                        </div>
+                        <div class="card-footer">Your Registration Number</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body text-danger text-center">
+                            <h5 id="categoryDisplay">Vocational Category</h5>
+                        </div>
+                        <div class="card-footer">Your Category</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body text-danger text-center">
+                            <h5 id="postDisplay">Applied Post</h5>
+                        </div>
+                        <div class="card-footer">Your Post / Subject</div>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <center>
+                    <span class="text-danger font-weight-bold">© 2025 EGAM Ministry</span>
+                    <span style="float:right;" class="text-success">Developed by Phil Web Solutions</span>
+                </center>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mCustomScrollbar/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+<script>
+    $(document).ready(function(){
+        // Load user data from localStorage
+        const userData = JSON.parse(localStorage.getItem('loggedInUser'));
+        if (!userData) {
+            // No login session, redirect to login
+            window.location.href = "index.html";
+            return;
+        }
+        // Set profile images (fallback if image missing)
+        const imgPath = userData.image && userData.image !== "" ? userData.image : "img/default-avatar.png";
+        $("#sidebarAvatar, #topAvatar, #profileImage").attr("src", imgPath);
+        $("#sidebarName, #topUserName, #userFullName").text(userData.fullName || userData.email.split('@')[0]);
+        $("#regNumberDisplay").text(userData.regNumber || "Not Assigned");
+        $("#categoryDisplay").text(userData.category || "General");
+        $("#postDisplay").text(userData.post || "Member");
+        
+        // Logout handler
+        $("#logoutBtn, #logoutTop").click(function(e){
+            e.preventDefault();
+            localStorage.removeItem('loggedInUser');
+            window.location.href = "index.html";
+        });
+    });
+</script>
+</body>
+</html>

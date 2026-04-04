@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GBOHUN ALORE PORTAL | Login</title>
+    <title>GBOHUN ALORE PORTAL</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23b22234'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='gold' font-weight='bold'%3EGA%3C/text%3E%3C/svg%3E" type="image/x-icon">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
-    <!-- Bootstrap + Font Awesome + Animate + Custom Theme -->
+    <!-- Bootstrap + Font Awesome + Animate + Custom Theme (preserve look) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet">
     <style>
+        /* Custom styles to mimic original 'custom.min.css' and login look */
         body.login {
             background: #F7F9FC;
             font-family: "Source Sans Pro", sans-serif;
@@ -22,7 +23,7 @@
             min-height: 100vh;
         }
         .login_wrapper {
-            width: 600px;
+            width: 800px;
             margin: 0 auto;
             margin-top: 5%;
             flex: 1;
@@ -58,15 +59,19 @@
             font-size: 13px;
         }
         .rounded-circle {
-            border-radius: 50% ;/*!important;*/
-            border: 4px solid #d9534f;
-            padding: 0.1px;
+            border-radius: 50% !important;
+            border: 2px solid #d9534f;
+            padding: 3px;
             background: white;
         }
         .alert-danger {
             font-size: 13px;
             padding: 8px 12px;
         }
+        .text-center.my-2 img {
+            vertical-align: middle;
+        }
+        /* Checkbox styling */
         .checkbox-verify {
             margin: 15px 0;
             text-align: center;
@@ -79,6 +84,7 @@
             transform: scale(1.1);
             vertical-align: middle;
         }
+        /* Footer styling */
         .portal-footer {
             text-align: center;
             padding: 20px 0;
@@ -97,7 +103,8 @@
     <div>
         <center>
             <div>
-                <img class="rounded-circle" src="img/egamlogo.png" alt="Logo" height="120" width="120">
+                <!-- PRESERVED ORIGINAL IMAGE (egamlogo) -->
+                <img class="rounded-circle" src="img/egamlogo.png" alt="Logo" height="100" width="100">
             </div>
         </center>
         
@@ -106,28 +113,41 @@
                 <section class="login_content">
                     <form id="loginForm" name="loginForm" method="POST" action="#">
                         <h1>EGAM MINISTRY</h1>
+                        
+                        <!-- Email field (acts as username) -->
                         <div>
                             <input type="email" name="emailADDRESS" id="loginemail" class="form-control" placeholder="Email Address / Username" required="">
                         </div>
+                        <!-- Password field -->
                         <div>
                             <input type="password" name="userPASSWORD" id="password" class="form-control" placeholder="Password" required="">
                         </div>
+
+                        <!-- 🔐 ADDITIONAL SECURITY IMAGE (small lock icon) as requested -->
                         <div class="text-center my-2">
                             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d9534f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'%3E%3C/path%3E%3C/svg%3E" alt="Secure" width="28" height="28">
-                            <span class="text-muted small">🔒 Secured Portal</span>
+                            <span class="text-muted small" style="font-size: 12px;">🔒 Secured Portal</span>
                         </div>
+
+                        <!-- ✅ NEW: CHECKBOX VERIFICATION (as requested from the snippet) -->
                         <div class="checkbox-verify">
                             <label style="color: #28a745; font-size: 15px;">
                                 <input type="checkbox" id="altLoginCheck">
                                 Click the checkbox to verify and click on Sign In
                             </label>
                         </div>
+
+                        <!-- Login button -->
                         <div>
                             <button class="btn btn-danger w-100" id="loginnow" type="submit">Log in</button>
                         </div>
+
                         <a class="reset_pass" href="#">Lost your password?</a>
                         <div class="clearfix"></div>
                         <hr>
+                        <div class="clearfix"></div>
+                        <br>
+                        <!-- Centered portal info using Bootstrap text-center -->
                         <div class="text-center">
                             <h5 class="text-danger">GBOHUN ALORE <span class="text-success font-weight-bolder">PORTAL</span></h5>
                             <p>©2025 All Rights Reserved. <strong>Jesus the way of life Gospel Church</strong>. Privacy and Terms</p>
@@ -139,90 +159,148 @@
         </div>
     </div>
 
+    <!-- NEW FOOTER with copyright year and EGAM (centered) -->
     <footer class="portal-footer">
         <p>&copy; <span id="currentYear"></span> EGAM. All rights reserved.</p>
         <p class="small">Empowering lives through faith and technology</p>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- REQUIRED SCRIPTS (jQuery + Bootstrap) only for style & DOM manipulation -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- CLIENT-SIDE AUTHENTICATION WITH ARRAY (including IMAGE property) AND CHECKBOX VERIFICATION -->
     <script>
         (function() {
-            // ========== USER ARRAY WITH DUMMY DATA ==========
-            const users = [
-                { email: "admin@gbohunalore.org", password: "admin123", image: "admin-profile.png", fullName: "Admin User", regNumber: "EGAM/2025/ADMIN/001", category: "Administration", post: "Portal Manager" },
-                { email: "gbohun@alore.org", password: "gbohun123", image: "gbohun.jpg", fullName: "Gbohun Alore", regNumber: "EGAM/2025/GB/002", category: "Vocational", post: "Music Minister" },
-                { email: "user@example.com", password: "userpass", image: "default-avatar.png", fullName: "Test User", regNumber: "EGAM/2025/TEST/003", category: "Technical", post: "IT Support" },
-                { email: "test@church.org", password: "test123", image: "test-image.jpg", fullName: "Church Worker", regNumber: "EGAM/2025/CH/004", category: "Volunteer", post: "Usher" },
-                { email: "phil@web.com", password: "phil123", image: "phil-web.png", fullName: "Philip Web", regNumber: "EGAM/2025/DEV/005", category: "ICT", post: "Web Developer" },
-                { email: "felix.victor@gbohun.org", password: "cmgs101", image: "cmgs101.jpg", fullName: "Felix Victor", regNumber: "EGAM/2025/CM/101", category: "Counseling", post: "Guidance Counselor" },
-                { email: "alpha.trinity@gbohun.org", password: "cmgs102", image: "cmgs102.jpg", fullName: "Alpha Trinity", regNumber: "EGAM/2025/CM/102", category: "Theology", post: "Bible Teacher" },
-                { email: "ogundipe.seun@gbohun.org", password: "cmgs103", image: "cmgs103.jpg", fullName: "Ogundipe Seun", regNumber: "EGAM/2025/CM/103", category: "Media", post: "Sound Engineer" },
-                { email: "abiodun.darasimi@gbohun.org", password: "cmgs104", image: "cmgs104.jpg", fullName: "Abiodun Darasimi", regNumber: "EGAM/2025/CM/104", category: "Welfare", post: "Social Worker" },
-                { email: "ibegbu.emmanuel@gbohun.org", password: "cmgs105", image: "cmgs105.jpg", fullName: "Ibegbu Emmanuel", regNumber: "EGAM/2025/CM/105", category: "Administration", post: "Secretary" },
-                { email: "ajayi.convenant@gbohun.org", password: "cmgs106", image: "cmgs106.jpg", fullName: "Ajayi Convenant", regNumber: "EGAM/2025/CM/106", category: "Technical", post: "Electrician" },
-                { email: "fadirepo.elizabeth@gbohun.org", password: "cmgs107", image: "cmgs107.jpg", fullName: "Fadirepo Elizabeth", regNumber: "EGAM/2025/CM/107", category: "Education", post: "Sunday School Teacher" }
+            // ========== ARRAY OF USERS WITH EMAIL, PASSWORD, AND IMAGE (as requested) ==========
+            const validUsers = [
+                { email: "admin@gbohunalore.org", password: "admin123", image: "admin-profile.png" },
+                { email: "gbohun@alore.org", password: "gbohun123", image: "gbohun.jpg" },
+                { email: "user@example.com", password: "userpass", image: "default-avatar.png" },
+                { email: "test@church.org", password: "test123", image: "test-image.jpg" },
+                { email: "phil@web.com", password: "phil123", image: "phil-web.png" },
+                // Additional users matching the snippet style (with username-based emails)
+                { email: "felix.victor@gbohun.org", password: "cmgs101", image: "cmgs101.jpg" },
+                { email: "alpha.trinity@gbohun.org", password: "cmgs102", image: "cmgs102.jpg" },
+                { email: "ogundipe.seun@gbohun.org", password: "cmgs103", image: "cmgs103.jpg" },
+                { email: "abiodun.darasimi@gbohun.org", password: "cmgs104", image: "cmgs104.jpg" },
+                { email: "ibegbu.emmanuel@gbohun.org", password: "cmgs105", image: "cmgs105.jpg" },
+                { email: "ajayi.convenant@gbohun.org", password: "cmgs106", image: "cmgs106.jpg" },
+                { email: "fadirepo.elizabeth@gbohun.org", password: "cmgs107", image: "cmgs107.jpg" }
             ];
 
+            // Helper: show error message inside login form without breaking design
             function showErrorMsg(message) {
                 let existingError = document.getElementById('loginAuthError');
                 if (existingError) existingError.remove();
+
                 const errorDiv = document.createElement('div');
                 errorDiv.id = 'loginAuthError';
                 errorDiv.className = 'alert alert-danger alert-dismissible fade show mt-2';
-                errorDiv.innerHTML = `<strong>⚠️ Access Denied!</strong> ${message}<button type="button" class="close" data-dismiss="alert"><span>×</span></button>`;
+                errorDiv.setAttribute('role', 'alert');
+                errorDiv.style.fontSize = '13px';
+                errorDiv.style.padding = '8px 12px';
+                errorDiv.innerHTML = `
+                    <strong>⚠️ Access Denied!</strong> ${message}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="font-size: 16px; line-height: 1;">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                `;
+                // Insert after password field
                 const passwordDiv = document.querySelector('#loginForm div:nth-child(3)');
                 if (passwordDiv && passwordDiv.nextSibling) {
                     passwordDiv.parentNode.insertBefore(errorDiv, passwordDiv.nextSibling.nextSibling);
                 } else {
                     document.querySelector('#loginForm .text-center.my-2').insertAdjacentElement('afterend', errorDiv);
                 }
+                // Auto-dismiss after 3.5 seconds
                 setTimeout(() => { if (errorDiv && errorDiv.remove) errorDiv.remove(); }, 3500);
             }
 
+            // Authentication & redirect handler (now includes checkbox verification)
             function handleLogin(event) {
-                event.preventDefault();
+                if (event) event.preventDefault();
+
                 const emailInput = document.getElementById('loginemail');
                 const passwordInput = document.getElementById('password');
                 const checkbox = document.getElementById('altLoginCheck');
                 const loginBtn = document.getElementById('loginnow');
                 
-                if (!checkbox.checked) {
+                if (!emailInput || !passwordInput) return false;
+
+                // Check if checkbox is ticked (verification required)
+                if (!checkbox || !checkbox.checked) {
                     showErrorMsg("Please tick the verification checkbox before signing in.");
-                    loginBtn.innerHTML = 'Log in';
-                    loginBtn.style.backgroundColor = "#d9534f";
-                    loginBtn.disabled = false;
+                    if (loginBtn) {
+                        loginBtn.innerHTML = 'Log in';
+                        loginBtn.style.backgroundColor = "#d9534f";
+                        loginBtn.disabled = false;
+                    }
                     return false;
                 }
+
                 const enteredEmail = emailInput.value.trim();
                 const enteredPassword = passwordInput.value;
-                if (!enteredEmail || !enteredPassword) {
+
+                if (enteredEmail === "" || enteredPassword === "") {
                     showErrorMsg("Please fill in both Email Address and Password.");
-                    loginBtn.innerHTML = 'Log in';
-                    loginBtn.style.backgroundColor = "#d9534f";
+                    if (loginBtn) {
+                        loginBtn.innerHTML = 'Log in';
+                        loginBtn.style.backgroundColor = "#d9534f";
+                        loginBtn.disabled = false;
+                    }
                     return false;
                 }
-                const matchedUser = users.find(u => u.email.toLowerCase() === enteredEmail.toLowerCase() && u.password === enteredPassword);
+
+                // Check against the predefined array (case-insensitive email)
+                const matchedUser = validUsers.find(user => 
+                    user.email.toLowerCase() === enteredEmail.toLowerCase() && user.password === enteredPassword
+                );
+
                 if (matchedUser) {
-                    // Store complete user data in localStorage
-                    localStorage.setItem('loggedInUser', JSON.stringify(matchedUser));
-                    loginBtn.innerHTML = '<span class="spinner-grow spinner-grow-sm text-light"></span>&nbsp;&nbsp;Redirecting...';
-                    loginBtn.style.backgroundColor = "#28a745";
-                    loginBtn.disabled = true;
-                    setTimeout(() => { window.location.href = "dashboard.html"; }, 400);
+                    // SUCCESS: store user image and email in localStorage for dashboard
+                    localStorage.setItem('loggedInUser', JSON.stringify({
+                        email: matchedUser.email,
+                        image: matchedUser.image || 'default.png',
+                        name: matchedUser.email.split('@')[0].replace(/\./g, ' ')
+                    }));
+
+                    // Show spinner and redirect to dashboard.html
+                    if (loginBtn) {
+                        loginBtn.innerHTML = '<span class="spinner-grow spinner-grow-sm text-light"></span>&nbsp;&nbsp;Redirecting...';
+                        loginBtn.style.backgroundColor = "#28a745";
+                        loginBtn.disabled = true;
+                    }
+                    // Redirect after short delay (smooth UX)
+                    setTimeout(() => {
+                        window.location.href = "dashboard.html";
+                    }, 400);
                 } else {
+                    // FAILURE
                     showErrorMsg("Invalid email or password. Please check your credentials.");
-                    loginBtn.innerHTML = 'Log in';
-                    loginBtn.style.backgroundColor = "#d9534f";
-                    loginBtn.disabled = false;
+                    if (loginBtn) {
+                        loginBtn.innerHTML = 'Log in';
+                        loginBtn.style.backgroundColor = "#d9534f";
+                        loginBtn.disabled = false;
+                    }
                 }
                 return false;
             }
 
-            document.getElementById('loginForm').addEventListener('submit', handleLogin);
-            document.getElementById('loginnow').addEventListener('click', handleLogin);
+            // Override form submission and button click
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', handleLogin);
+            }
+            const loginButton = document.getElementById('loginnow');
+            if (loginButton) {
+                loginButton.addEventListener('click', handleLogin);
+            }
+
+            // Set current year dynamically in footer
             document.getElementById('currentYear').innerText = new Date().getFullYear();
+
+            console.log("✅ Authentication active: user array with images + checkbox verification + redirect ready.");
         })();
     </script>
 </body>

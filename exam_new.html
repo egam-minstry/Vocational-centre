@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EGAM Ministry CBT Exam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            padding: 20px;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        #header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        #logout-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        #logout {
+            background: #dc3545;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #logout:hover {
+            background: #c82333;
+            transform: scale(1.02);
+        }
+        .marquee-container {
+            background: #ffc107;
+            color: #1e3c72;
+            padding: 5px 10px;
+            border-radius: 40px;
+            font-weight: bold;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+        }
+        .marquee-text {
+            display: inline-block;
+            animation: marquee 15s linear infinite;
+            padding-left: 100%;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        #logo {
+            text-align: center;
+            margin: 15px 0;
+        }
+        #logo img {
+            max-height: 70px;
+        }
+        #student-info {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .student-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        #userImage {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #28a745;
+            object-fit: cover;
+        }
+        #username {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+        .section-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .section-btn {
+            background: #6c757d;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 40px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .section-btn.active {
+            background: #28a745;
+        }
+        .exam-info {
+            text-align: center;
+            font-size: 1.2rem;
+            background: #343a40;
+            padding: 8px;
+            border-radius: 30px;
+            margin: 15px 0;
+        }
+        #timer {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            background: #000000aa;
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 50px;
+            margin: 10px auto;
+            width: fit-content;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-top: 15px;
+        }
+        .scroll-container {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+        .option-group {
+            background: #f8f9fa;
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .option-group:hover {
+            background: #e9ecef;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .option input {
+            transform: scale(1.2);
+            margin-right: 8px;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .btn-cool {
+            background: #007bff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-cool:hover {
+            background: #0056b3;
+            transform: scale(0.98);
+        }
+        .questionButtons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        .question-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        #theorySection {
+            display: none;
+        }
+        .theory-status {
+            background: #17a2b8;
+            color: white;
+            padding: 8px;
+            border-radius: 30px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        #theoryAnswer {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            font-family: monospace;
+            font-size: 1rem;
+            margin-top: 15px;
+        }
+        .theory-nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .theory-btn {
+            background: #6c757d;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .theory-save-btn { background: #28a745; }
+        .theory-submit-btn { background: #dc3545; }
+        #userAnswerCount {
+            background: #e2e3e5;
+            padding: 10px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .windows-activate {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #6c757d;
+        }
+        @media (max-width: 700px) {
+            body { padding: 10px; }
+            .section-btn { padding: 6px 15px; font-size: 12px; }
+            #timer { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false">
+    <div id="header">
+        <div id="logout-container">
+            <button id="logout" onclick="logout()">Logout</button>
+            <div class="marquee-container">
+                <span class="marquee-text">EGAM MINISTRY VOCATIONAL CENTRE : IN CHRIST WE HOPE IN HIM WE GLORY</span>
+            </div>
+        </div>
+        <div id="logo">
+            <img src="img/egamlogo.png" alt="EGAM CBT PORTAL" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%23b22234%22/%3E%3Ctext x=%2250%22 y=%2267%22 font-size=%2250%22 text-anchor=%22middle%22 fill=%22gold%22%3EGA%3C/text%3E%3C/svg%3E'">
+        </div>
+        <div id="student-info">
+            <center><strong>⚠️ CLICK ON SUBMIT BUTTON BEFORE YOUR TIME IS UP TO SAVE YOUR SCORE</strong></center>
+            <center><p id="datetime"></p></center>
+            <div id="welcome-message"></div>
+            <div class="student-info">
+                <img id="userImage" src="img/default_user.jpg" alt="User Image">
+                <h2 id="username">Student Name</h2>
+            </div>
+        </div>
+        <center><h3>EGAM MINISTRY VOCATIONAL CENTRE, EKUTE QUARTERS, ADO EKITI</h3></center>
+        <center><h3>SECOND TERM EXAMINATION 2025/2026 ACADEMIC SESSION</h3></center>
+
+        <div class="section-toggle">
+            <button id="objectivesBtn" class="section-btn active" onclick="showSection('objectives')">OBJECTIVE QUESTIONS</button>
+            <button id="theoryBtn" class="section-btn" onclick="showSection('theory')">THEORY QUESTIONS</button>
+        </div>
+        <div class="exam-info">
+            Exam: <span id="examInfo">CHRISTIAN RELIGIOUS STUDIES</span>
+        </div>
+        <div id="timer"></div>
+    </div>
+
+    <!-- OBJECTIVES SECTION -->
+    <div id="objectivesSection">
+        <div class="container">
+            <h5 style="color: #d35400; text-align: center;">INSTRUCTIONS: READ CAREFULLY BEFORE CHOOSING YOUR ANSWER</h5>
+            <div class="scroll-container">
+                <div id="questionText"></div>
+            </div>
+            <div id="questionImageContainer"></div>
+            <div class="option-group"><label class="option"><strong>A.</strong><input type="radio" name="option" value="A"> <span id="optA"></span></label></div>
+            <div class="option-group"><label class="option"><strong>B.</strong><input type="radio" name="option" value="B"> <span id="optB"></span></label></div>
+            <div class="option-group"><label class="option"><strong>C.</strong><input type="radio" name="option" value="C"> <span id="optC"></span></label></div>
+            <div class="option-group"><label class="option"><strong>D.</strong><input type="radio" name="option" value="D"> <span id="optD"></span></label></div>
+        </div>
+        <div class="nav-buttons">
+            <button onclick="prevQuestion()" class="btn-cool">Previous</button>
+            <button onclick="nextQuestion()" class="btn-cool">Next</button>
+            <button onclick="submitExam()" class="btn-cool">Submit Objectives</button>
+        </div>
+        <div class="container">
+            <div id="questionButtons" class="questionButtons"></div>
+        </div>
+    </div>
+
+    <!-- THEORY SECTION -->
+    <div id="theorySection">
+        <h3 style="text-align: center; color: #d35400;">THEORY QUESTIONS</h3>
+        <div class="theory-status" id="theoryStatus">Question 1 of 5 | Saved: 0/5</div>
+        <div id="theoryQuestionContainer">
+            <p id="theoryQuestionText">Loading theory questions...</p>
+            <div id="theoryImageContainer"></div>
+            <textarea id="theoryAnswer" rows="6" placeholder="Write your detailed answer here..."></textarea>
+            <div class="theory-nav-buttons">
+                <button onclick="prevTheoryQuestion()" class="theory-btn">Previous</button>
+                <button onclick="saveTheoryAnswer()" class="theory-btn theory-save-btn">Save Answer</button>
+                <button onclick="nextTheoryQuestion()" class="theory-btn">Next</button>
+                <button onclick="submitTheoryExam()" class="theory-btn theory-submit-btn">Submit Theory</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="userAnswerCount">
+        <p id="answeredLabel">Answered: 0/5</p>
+        <p id="unansweredLabel">Unanswered: 5/5</p>
+    </div>
+    <div class="marquee-container">
+        <span class="marquee-text">2ND HALF  2025/2026 VOCATIONAL TRAINING  SESSION</span>
+    </div>
+    <div class="windows-activate">
+        <p>&copy; CBT.<span style="color: red;">egam-ministry vocational </span><span style="color: green;">centre</span>.org</p>
+    </div>
+
+    <script>
+        // ---------- LOAD USER DATA FROM LOCALSTORAGE (set by login page) ----------
+        const userData = JSON.parse(localStorage.getItem('loggedInUser'));
+        // COMMENTED OUT: Auto-redirect when no session found
+        /*
+        if (!userData) {
+            alert("No login session found. Redirecting to login page.");
+            window.location.href = "login.html";
+        }
+        */
+        // If userData is missing, we still try to show something (fallback)
+        const userName = userData ? (userData.fullName || userData.email.split('@')[0]) : "Guest User";
+        const userImage = (userData && userData.image && userData.image !== "") ? userData.image : "img/default_user.jpg";
+        document.getElementById('username').innerText = userName;
+        document.getElementById('userImage').src = userImage;
+
+        // ---------- STATIC QUESTIONS (objective & theory) ----------
+        const staticObjectivesQuestions = [
+            { id: 1, question: "The smallest unit of society is the __.", options: { A: "church", B: "community", C: "family", D: "school" }, answer: "C", image: null },
+            { id: 2, question: "A family made up of father, mother, and children is called __.", options: { A: "extended family", B: "nuclear family", C: "large family", D: "royal family" }, answer: "B", image: null },
+            { id: 3, question: "Who led the Israelites out of Egypt?", options: { A: "Joshua", B: "Moses", C: "Aaron", D: "David" }, answer: "B", image: null },
+            { id: 4, question: "The first book of the Bible is __.", options: { A: "Exodus", B: "Leviticus", C: "Genesis", D: "Numbers" }, answer: "C", image: null },
+            { id: 5, question: "Jesus was born in __.", options: { A: "Nazareth", B: "Jerusalem", C: "Bethlehem", D: "Capernaum" }, answer: "C", image: null }
+        ];
+        const staticTheoryQuestions = [
+            { id: 1, question: "a. What is repentance? \n\n b. Narrate the story of David’s repentance as recorded in 2 Samuel 12:7–13. \n\n c. Mention two lessons Christians can learn from David’s repentance.", marks: 10, image: null },
+            { id: 2, question: "a. Who was Jonah? \n\n b. Describe how the people of Nineveh responded to Jonah’s message (Jonah 3:1–10). \n\n c. State two importance of repentance in a Christian’s life.", marks: 10, image: null }
+        ];
+
+        let questions = staticObjectivesQuestions;
+        let theoryQuestions = staticTheoryQuestions;
+        let currentQuestion = 0;
+        let userAnswers = new Array(questions.length);
+        let currentTheory = 0;
+        let theoryAnswers = new Array(theoryQuestions.length).fill('');
+        let currentSection = 'objectives';
+
+        // Timer (30 minutes)
+        let timeLeft = 30 * 60;
+        const timerEl = document.getElementById('timer');
+        const timerInterval = setInterval(() => {
+            let min = Math.floor(timeLeft / 60);
+            let sec = timeLeft % 60;
+            timerEl.textContent = `Time Remaining: ${min}:${sec < 10 ? '0' + sec : sec}`;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Time is up! Submitting exam automatically.");
+                submitExam();
+            }
+            timeLeft--;
+            if (timeLeft < 300) timerEl.style.color = "red";
+        }, 1000);
+
+        // Helper: map math symbols
+        function mapMathSymbol(text) {
+            if (!text) return '';
+            return text.replace(/&theta;/g, 'θ').replace(/&pi;/g, 'π').replace(/&alpha;/g, 'α')
+                .replace(/&beta;/g, 'β').replace(/&gamma;/g, 'γ').replace(/&delta;/g, 'δ');
+        }
+
+        // Section toggle
+        function showSection(section) {
+            currentSection = section;
+            document.getElementById('objectivesBtn').classList.toggle('active', section === 'objectives');
+            document.getElementById('theoryBtn').classList.toggle('active', section === 'theory');
+            document.getElementById('objectivesSection').style.display = section === 'objectives' ? 'block' : 'none';
+            document.getElementById('theorySection').style.display = section === 'theory' ? 'block' : 'none';
+            if (section === 'theory') displayTheoryQuestion();
+        }
+
+        // Objective functions
+        function saveAnswer() {
+            const selected = document.querySelector('input[name="option"]:checked');
+            if (selected) userAnswers[currentQuestion] = selected.value;
+            countUserSelections();
+            renderQuestionButtons();
+        }
+        function displayQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById('questionText').innerHTML = `${currentQuestion+1}. ${mapMathSymbol(q.question)}`;
+            document.getElementById('optA').innerHTML = mapMathSymbol(q.options.A);
+            document.getElementById('optB').innerHTML = mapMathSymbol(q.options.B);
+            document.getElementById('optC').innerHTML = mapMathSymbol(q.options.C);
+            document.getElementById('optD').innerHTML = mapMathSymbol(q.options.D);
+            document.getElementById('questionImageContainer').innerHTML = q.image ? `<img src="${q.image}" style="max-width:100%">` : '';
+            const radios = document.getElementsByName('option');
+            radios.forEach(r => r.checked = false);
+            if (userAnswers[currentQuestion]) document.querySelector(`input[name="option"][value="${userAnswers[currentQuestion]}"]`).checked = true;
+            highlightCurrentButton();
+        }
+        function nextQuestion() { saveAnswer(); if (currentQuestion < questions.length-1) { currentQuestion++; displayQuestion(); } }
+        function prevQuestion() { saveAnswer(); if (currentQuestion > 0) { currentQuestion--; displayQuestion(); } }
+        function renderQuestionButtons() {
+            const container = document.getElementById('questionButtons');
+            container.innerHTML = '';
+            for (let i = 0; i < questions.length; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i+1;
+                btn.className = 'question-btn';
+                btn.onclick = () => { saveAnswer(); currentQuestion = i; displayQuestion(); };
+                container.appendChild(btn);
+            }
+            highlightCurrentButton();
+        }
+        function highlightCurrentButton() {
+            document.querySelectorAll('.question-btn').forEach((btn, idx) => {
+                const answered = userAnswers[idx] !== undefined;
+                btn.style.backgroundColor = idx === currentQuestion ? '#5cb85c' : (answered ? '#337ab7' : '#eee');
+                btn.style.color = (idx === currentQuestion || answered) ? 'white' : 'black';
+            });
+        }
+        function countUserSelections() {
+            let answered = userAnswers.filter(a => a !== undefined).length;
+            document.getElementById("answeredLabel").innerText = `Answered: ${answered}/${questions.length}`;
+            document.getElementById("unansweredLabel").innerText = `Unanswered: ${questions.length - answered}`;
+        }
+
+        function submitExam() {
+            saveAnswer();
+            let score = 0;
+            questions.forEach((q, i) => { if (userAnswers[i] === q.answer) score++; });
+            clearInterval(timerInterval);
+            alert(`Objective Exam Completed!\nYour Score: ${score} out of ${questions.length}\n\nYou will be redirected to dashboard.`);
+            localStorage.setItem('lastExamScore', score);
+            window.location.href = "dashboard.html";
+        }
+
+        // Theory functions
+        function displayTheoryQuestion() {
+            if (!theoryQuestions.length) return;
+            const tq = theoryQuestions[currentTheory];
+            document.getElementById('theoryQuestionText').innerText = `${currentTheory+1}. ${tq.question} ${tq.marks ? `[${tq.marks} marks]` : ''}`;
+            document.getElementById('theoryAnswer').value = theoryAnswers[currentTheory] || "";
+            document.getElementById('theoryImageContainer').innerHTML = tq.image ? `<img src="${tq.image}" style="max-width:100%">` : '';
+            updateTheoryStatus();
+        }
+        function updateTheoryStatus() {
+            const saved = theoryAnswers.filter(a => a.trim() !== "").length;
+            document.getElementById("theoryStatus").innerText = `Question ${currentTheory+1} of ${theoryQuestions.length} | Saved: ${saved}/${theoryQuestions.length}`;
+        }
+        function saveTheoryAnswer() {
+            theoryAnswers[currentTheory] = document.getElementById('theoryAnswer').value.trim();
+            updateTheoryStatus();
+            alert("Theory answer saved!");
+        }
+        function nextTheoryQuestion() { if (currentTheory < theoryQuestions.length-1) { currentTheory++; displayTheoryQuestion(); } else alert("Last theory question."); }
+        function prevTheoryQuestion() { if (currentTheory > 0) { currentTheory--; displayTheoryQuestion(); } }
+        function submitTheoryExam() {
+            const saved = theoryAnswers.filter(a => a.trim() !== "").length;
+            if (confirm(`Theory section: ${saved}/${theoryQuestions.length} answered. Submit?`)) {
+                alert("Theory answers submitted successfully!");
+                showSection('objectives'); // go back to objectives or stay
+            }
+        }
+
+        // Date & time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById("datetime").innerText = now.toLocaleDateString(undefined, options);
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        // Anti-cheat & logout
+        document.addEventListener('contextmenu', (e) => { e.preventDefault(); alert("Right-click disabled during exam."); });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || (e.ctrlKey && e.key === 'u')) {
+                e.preventDefault(); alert("Developer tools disabled.");
+            }
+        });
+        function logout() {
+            if (confirm("Logout now? Your progress will be lost.")) {
+                // COMMENTED OUT: Redirect to login.html
+                // window.location.href = "login.html";
+                alert("Logout action is disabled (redirect commented).");
+            }
+        }
+
+        // Initialize
+        displayQuestion();
+        renderQuestionButtons();
+        countUserSelections();
+        showSection('objectives');
+    </script>
+</body>
+</html>
