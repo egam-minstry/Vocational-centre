@@ -6,43 +6,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EGAM Ministry Portal | Dashboard</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23b22234'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='gold' font-weight='bold'%3EGA%3C/text%3E%3C/svg%3E" type="image/x-icon">
-    <!-- Bootstrap & Font Awesome & Custom Styles -->
+    <!-- Bootstrap + Font Awesome + Custom Styles -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.mCustomScrollbar/3.1.5/jquery.mCustomScrollbar.min.css" rel="stylesheet">
-    <!-- Custom Theme Style (mimics original) -->
     <style>
-        body {
-            background: #F7F9FC;
-            font-family: "Source Sans Pro", sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: darkred;
+            position: relative;
+            z-index: 1;
+        }
+        /* Watermark logo background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('img/egamlogo.png') no-repeat center center;
+            background-size: 300px 300px;
+            opacity: 0.08;
+            z-index: 0;
+            pointer-events: none;
+        }
+        /* Header area with logo and marquee */
+        .site-header {
+            background: #8b0000;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .logo-container img {
+            max-height: 70px;
+            width: auto;
+        }
+        .marquee-wrapper {
+            flex: 1;
+            margin-left: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            background: rgba(255,215,0,0.2);
+            padding: 8px 15px;
+            border-radius: 40px;
+        }
+        .marquee-text {
+            display: inline-block;
+            color: #ffd966;
+            font-size: 1.2rem;
+            font-weight: bold;
+            animation: marquee 12s linear infinite;
+            padding-left: 100%;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        /* Sidebar & main container */
         .main_container {
             display: flex;
-            min-height: 100vh;
+            min-height: calc(100vh - 80px);
         }
         .left_col {
             background: #2A3F54;
-            width: 230px;
+            width: 250px;
             position: fixed;
             height: 100%;
             overflow-y: auto;
+            top: 80px;
         }
         .right_col {
-            margin-left: 230px;
+            margin-left: 250px;
             padding: 20px;
-            width: calc(100% - 230px);
+            width: calc(100% - 250px);
+            margin-top: 80px;
         }
         .top_nav {
             background: #EDEDED;
             padding: 0 20px;
             position: fixed;
-            top: 0;
+            top: 80px;
             right: 0;
-            left: 230px;
+            left: 250px;
             z-index: 1000;
-            height: 60px;
-            line-height: 60px;
+            height: 55px;
+            line-height: 55px;
             box-shadow: 0 1px 4px rgba(0,0,0,0.1);
         }
         .nav_menu {
@@ -51,9 +109,10 @@
         }
         .profile img {
             border-radius: 50%;
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             object-fit: cover;
+            border: 2px solid #ffd966;
         }
         .side-menu {
             list-style: none;
@@ -64,151 +123,182 @@
             display: block;
             padding: 12px 15px;
             font-size: 14px;
+            transition: 0.2s;
         }
         .side-menu li a:hover {
             background: #1D2F3E;
+            text-decoration: none;
         }
         .menu_section {
             margin-top: 20px;
         }
         .card {
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-3px);
         }
         .card-footer {
             background: #28a745;
             color: white;
+            font-weight: 600;
+            text-align: center;
         }
         footer {
-            background: #fff;
-            padding: 15px;
+            background: rgba(255,255,255,0.9);
+            padding: 12px;
             text-align: center;
-            margin-top: 30px;
-            border-top: 1px solid #ddd;
+            margin-top: 40px;
+            border-radius: 12px;
+            font-size: 14px;
         }
         @media (max-width: 768px) {
-            .left_col { width: 70px; }
+            .left_col { width: 70px; top: 120px; }
             .right_col, .top_nav { margin-left: 70px; left: 70px; }
+            .site-header { flex-direction: column; text-align: center; }
+            .marquee-wrapper { margin-left: 0; margin-top: 10px; width: 100%; }
         }
     </style>
 </head>
 <body>
-<div class="container-fluid p-0">
-    <div class="main_container">
-        <!-- Sidebar -->
-        <div class="left_col">
-            <div class="profile clearfix mt-3 text-center">
-                <img src="img/egamlogo.png" id="sidebarAvatar" alt="Avatar" class="rounded-circle" width="60" height="60">
-                <div class="text-white mt-2"><span id="sidebarName">User</span></div>
-            </div>
-            <div id="sidebar-menu" class="main_menu_side">
-                <div class="menu_section">
-                    <ul class="nav side-menu">
-                        <li><a href="dashboard.html"><i class="fa fa-home"></i> Dashboard</a></li>
-                        <li><a href="#"><i class="fa fa-print"></i> Print Slip</a></li>
-                        <li><a href="exam_new.html"><i class="fa fa-pencil"></i> Write Exam</a></li>
-                        <li style="background-color: #df628e;"><a href="index.html" id="logoutBtn"><i class="fa fa-sign-out"></i> Sign Out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
 
-        <!-- Top Navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <div class="nav toggle">
-                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                </div>
-                <ul class="navbar-nav flex-row">
-                    <li class="nav-item mr-3">
-                        <h5 class="text-danger"><img src="img/egamlogo.png" alt="Logo" height="40" width="40"> <span class="text-success">EGAM MINISTRY Portal</span></h5>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="user-profile dropdown-toggle" data-toggle="dropdown">
-                            <img id="topAvatar" src="img/default-avatar.png" width="35" height="35" class="rounded-circle"> <span id="topUserName">User</span>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="index.html" id="logoutTop"><i class="fa fa-sign-out"></i> Log Out</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Main Content -->
-        <div class="right_col">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <img id="profileImage" src="img/default-avatar.png" class="rounded-circle" width="120" height="120">
-                            <h3 class="mt-2">Hello, <strong id="userFullName">User</strong></h3>
-                            <span>Welcome to your EGAM Ministry portal – your details are shown below.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body text-danger text-center">
-                            <h5 id="regNumberDisplay">EGAM/2025/XXXX</h5>
-                        </div>
-                        <div class="card-footer">Your Registration Number</div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body text-danger text-center">
-                            <h5 id="categoryDisplay">Vocational Category</h5>
-                        </div>
-                        <div class="card-footer">Your Category</div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body text-danger text-center">
-                            <h5 id="postDisplay">Applied Post</h5>
-                        </div>
-                        <div class="card-footer">Your Post / Subject</div>
-                    </div>
-                </div>
-            </div>
-
-            <footer>
-                <center>
-                    <span class="text-danger font-weight-bold">© 2025 EGAM Ministry</span>
-                    <span style="float:right;" class="text-success">Developed by Phil Web Solutions</span>
-                </center>
-            </footer>
-        </div>
+<!-- HEADER with Logo and Marquee -->
+<div class="site-header">
+    <div class="logo-container">
+        <img src="img/egamlogo.png" alt="EGAM Ministry Logo">
+    </div>
+    <div class="marquee-wrapper">
+        <div class="marquee-text">🎓 EGAM VOCATIONAL CENTRE : IN CHRIST WE HOPE, IN HIM WE GLORY 🎓</div>
     </div>
 </div>
 
-<!-- Scripts -->
+<div class="main_container">
+    <!-- SIDEBAR -->
+    <div class="left_col">
+        <div class="profile clearfix mt-3 text-center">
+            <img id="sidebarAvatar" src="img/default-avatar.png" alt="Avatar" class="rounded-circle" width="70" height="70">
+            <div class="text-white mt-2 font-weight-bold"><span id="sidebarName">User</span></div>
+        </div>
+        <div id="sidebar-menu" class="main_menu_side">
+            <div class="menu_section">
+                <ul class="nav side-menu">
+                    <li><a href="new_dashboard.html"><i class="fa fa-home"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fa fa-print"></i> Print Slip</a></li>
+                    <li><a href="exam_new.html"><i class="fa fa-pencil"></i> Write Exam</a></li>
+                    <li style="background-color: #df628e;"><a href="index.html" id="logoutBtn"><i class="fa fa-sign-out"></i> Sign Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOP NAVIGATION BAR -->
+    <div class="top_nav">
+        <div class="nav_menu">
+            <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+            </div>
+            <ul class="navbar-nav flex-row">
+                <li class="nav-item mr-3">
+                    <h5 class="text-danger mb-0"><img src="img/egamlogo.png" alt="Logo" height="35" width="35"> <span class="text-success">EGAM MINISTRY Portal</span></h5>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="user-profile dropdown-toggle" data-toggle="dropdown">
+                        <img id="topAvatar" src="img/default-avatar.png" width="35" height="35" class="rounded-circle"> 
+                        <span id="topUserName">User</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="index.html" id="logoutTop"><i class="fa fa-sign-out"></i> Log Out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="right_col">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <img id="profileImage" src="img/default-avatar.png" class="rounded-circle" width="120" height="120">
+                        <h3 class="mt-3">Hello, <strong id="userFullName">User</strong></h3>
+                        <span class="text-muted">Welcome to your EGAM Ministry portal – your details are shown below.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-danger text-center">
+                        <h5 id="regNumberDisplay">EGAM/2025/XXXX</h5>
+                    </div>
+                    <div class="card-footer">Your Registration Number</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-danger text-center">
+                        <h5 id="categoryDisplay">Vocational Category</h5>
+                    </div>
+                    <div class="card-footer">Your Category</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-danger text-center">
+                        <h5 id="postDisplay">Applied Post</h5>
+                    </div>
+                    <div class="card-footer">Your Post / Subject</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <span class="text-danger font-weight-bold">© 2025 EGAM Ministry</span>
+            <span style="float:right;" class="text-success">Developed by Phil Web Solutions</span>
+            <div class="clearfix"></div>
+        </footer>
+    </div>
+</div>
+
+<!-- SCRIPTS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mCustomScrollbar/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 <script>
-    $(document).ready(function(){
-        // Load user data from localStorage
+    $(document).ready(function() {
+        // Retrieve logged-in user data from localStorage (set by login.html)
         const userData = JSON.parse(localStorage.getItem('loggedInUser'));
         if (!userData) {
-            // No login session, redirect to login
+            // No active session – redirect to login page
             window.location.href = "index.html";
             return;
         }
-        // Set profile images (fallback if image missing)
-        const imgPath = userData.image && userData.image !== "" ? userData.image : "img/default-avatar.png";
-        $("#sidebarAvatar, #topAvatar, #profileImage").attr("src", imgPath);
-        $("#sidebarName, #topUserName, #userFullName").text(userData.fullName || userData.email.split('@')[0]);
+
+        // Determine profile image path: if userData.image is a relative path like "admin.png", prepend "img/"
+        let userImage = userData.image || "img/default-avatar.png";
+        if (userImage && !userImage.startsWith('img/') && !userImage.startsWith('data:')) {
+            userImage = "img/" + userImage;
+        }
+
+        // Update all avatar/image elements
+        $("#sidebarAvatar, #topAvatar, #profileImage").attr("src", userImage);
+        
+        // Display user name (fullName or email prefix)
+        const displayName = userData.fullName || (userData.email ? userData.email.split('@')[0] : "User");
+        $("#sidebarName, #topUserName, #userFullName").text(displayName);
+        
+        // Fill dashboard cards with user data
         $("#regNumberDisplay").text(userData.regNumber || "Not Assigned");
         $("#categoryDisplay").text(userData.category || "General");
         $("#postDisplay").text(userData.post || "Member");
         
-        // Logout handler
-        $("#logoutBtn, #logoutTop").click(function(e){
+        // Logout handlers
+        $("#logoutBtn, #logoutTop").on("click", function(e) {
             e.preventDefault();
             localStorage.removeItem('loggedInUser');
             window.location.href = "index.html";

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EGAM Ministry | Login</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23b22234'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='gold' font-weight='bold'%3EGA%3C/text%3E%3C/svg%3E" type="image/x-icon">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- Bootstrap + Font Awesome + Animate -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+    <style>
+        /* Aligned with dashboard.html – dark red background, watermark, header */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: darkred;
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Watermark logo background (same as dashboard) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('img/egamlogo.png') no-repeat center center;
+            background-size: 300px 300px;
+            opacity: 0.08;
+            z-index: 0;
+            pointer-events: none;
+        }
+        /* Header with logo and marquee (identical to dashboard) */
+        .site-header {
+            background: #8b0000;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 2;
+        }
+        .logo-container img {
+            max-height: 70px;
+            width: auto;
+        }
+        .marquee-wrapper {
+            flex: 1;
+            margin-left: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            background: rgba(255,215,0,0.2);
+            padding: 8px 15px;
+            border-radius: 40px;
+        }
+        .marquee-text {
+            display: inline-block;
+            color: #ffd966;
+            font-size: 1.2rem;
+            font-weight: bold;
+            animation: marquee 12s linear infinite;
+            padding-left: 100%;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        /* Login card container – centered with proper spacing */
+        .login-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .login_wrapper {
+            width: 500px;
+            margin: 0 auto;
+        }
+        .login_content {
+            background: #fff;
+            padding: 30px 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .login_content h1 {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 25px;
+            color: #d9534f;
+        }
+        .form-control {
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        .btn-danger {
+            background-color: #d9534f;
+            border-color: #d43f3a;
+            transition: 0.3s;
+        }
+        .btn-danger:hover {
+            background-color: #c9302c;
+            transform: scale(0.98);
+        }
+        .reset_pass {
+            display: block;
+            text-align: right;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+        .checkbox-verify {
+            margin: 15px 0;
+            text-align: center;
+            font-size: 14px;
+            color: #28a745;
+            font-weight: 500;
+        }
+        .checkbox-verify input {
+            margin-right: 8px;
+            transform: scale(1.1);
+        }
+        .alert-danger {
+            font-size: 13px;
+            padding: 8px 12px;
+        }
+        /* Footer (same as dashboard) */
+        .portal-footer {
+            text-align: center;
+            padding: 15px 0;
+            margin-top: auto;
+            font-size: 14px;
+            color: #ffd966;
+            background: rgba(0,0,0,0.5);
+            border-top: 1px solid #ffd966;
+            position: relative;
+            z-index: 2;
+        }
+        .portal-footer p {
+            margin-bottom: 5px;
+        }
+        @media (max-width: 768px) {
+            .site-header { flex-direction: column; text-align: center; }
+            .marquee-wrapper { margin-left: 0; margin-top: 10px; width: 100%; }
+            .login_wrapper { width: 95%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header: same as dashboard -->
+    <div class="site-header">
+        <div class="logo-container">
+            <img src="img/egamlogo.png" alt="EGAM Ministry Logo">
+        </div>
+        <div class="marquee-wrapper">
+            <div class="marquee-text">🎓 EGAM VOCATIONAL CENTRE : IN CHRIST WE HOPE, IN HIM WE GLORY 🎓</div>
+        </div>
+    </div>
+
+    <!-- Login Form Card -->
+    <div class="login-wrapper">
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    <form id="loginForm" name="loginForm" method="POST" action="#">
+                        <h1>EGAM MINISTRY</h1>
+                        
+                        <div>
+                            <input type="email" name="emailADDRESS" id="loginemail" class="form-control" placeholder="Email Address / Username" required>
+                        </div>
+                        <div>
+                            <input type="password" name="userPASSWORD" id="password" class="form-control" placeholder="Password" required>
+                        </div>
+
+                        <!-- Security lock icon (kept from original) -->
+                        <div class="text-center my-2">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d9534f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'%3E%3C/path%3E%3C/svg%3E" alt="Secure" width="28" height="28">
+                            <span class="text-muted small">🔒 Secured Portal</span>
+                        </div>
+
+                        <!-- Checkbox verification -->
+                        <div class="checkbox-verify">
+                            <label style="color: #28a745; font-size: 15px;">
+                                <input type="checkbox" id="altLoginCheck">
+                                Click the checkbox to verify and click on Sign In
+                            </label>
+                        </div>
+
+                        <div>
+                            <button class="btn btn-danger w-100" id="loginnow" type="submit">Log in</button>
+                        </div>
+
+                        <a class="reset_pass" href="#">Lost your password?</a>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="text-center">
+                            <h5 class="text-danger">GBOHUN ALORE <span class="text-success font-weight-bolder">PORTAL</span></h5>
+                            <p>©2025 All Rights Reserved. <strong>Jesus the way of life Gospel Church</strong>. Privacy and Terms</p>
+                            <p style="font-size:10px; color:red">Developed by: phil web solutions</p>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="portal-footer">
+        <p>&copy; <span id="currentYear"></span> EGAM Ministry. All rights reserved.</p>
+        <p class="small">Empowering lives through faith and technology</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        
+        (function() {
+            // ========== ENHANCED USER ARRAY (includes all fields expected by dashboard) ==========
+            const validUsers = [
+                { 
+                    email: "admin@gbohunalore.org", password: "admin123", 
+                    fullName: "Administrator", regNumber: "EGAM/2025/ADMIN/001", 
+                    category: "Administration", post: "Portal Manager", image: "admin.png"
+                },
+                { 
+                    email: "gbohun@alore.org", password: "gbohun123", 
+                    fullName: "Gbohun Alore", regNumber: "EGAM/2025/GB/002", 
+                    category: "Vocational", post: "Music Minister", image: "gbohun.jpg"
+                },
+                { 
+                    email: "user@example.com", password: "userpass", 
+                    fullName: "Test User", regNumber: "EGAM/2025/TEST/003", 
+                    category: "Technical", post: "IT Support", image: "default-avatar.png"
+                },
+                { 
+                    email: "test@church.org", password: "test123", 
+                    fullName: "Church Worker", regNumber: "EGAM/2025/CH/004", 
+                    category: "Volunteer", post: "Usher", image: "test-image.jpg"
+                },
+                { 
+                    email: "phil@web.com", password: "phil123", 
+                    fullName: "Philip Web", regNumber: "EGAM/2025/DEV/005", 
+                    category: "ICT", post: "Web Developer", image: "phil-web.png"
+                },
+                { 
+                    email: "felix.victor@gbohun.org", password: "cmgs101", 
+                    fullName: "Felix Victor", regNumber: "EGAM/2025/CM/101", 
+                    category: "Counseling", post: "Guidance Counselor", image: "cmgs101.jpg"
+                },
+                { 
+                    email: "alpha.trinity@gbohun.org", password: "cmgs102", 
+                    fullName: "Alpha Trinity", regNumber: "EGAM/2025/CM/102", 
+                    category: "Theology", post: "Bible Teacher", image: "cmgs102.jpg"
+                },
+                { 
+                    email: "ogundipe.seun@gbohun.org", password: "cmgs103", 
+                    fullName: "Ogundipe Seun", regNumber: "EGAM/2025/CM/103", 
+                    category: "Media", post: "Sound Engineer", image: "cmgs103.jpg"
+                },
+                { 
+                    email: "abiodun.darasimi@gbohun.org", password: "cmgs104", 
+                    fullName: "Abiodun Darasimi", regNumber: "EGAM/2025/CM/104", 
+                    category: "Welfare", post: "Social Worker", image: "cmgs104.jpg"
+                },
+                { 
+                    email: "ibegbu.emmanuel@gbohun.org", password: "cmgs105", 
+                    fullName: "Ibegbu Emmanuel", regNumber: "EGAM/2025/CM/105", 
+                    category: "Administration", post: "Secretary", image: "cmgs105.jpg"
+                },
+                { 
+                    email: "ajayi.convenant@gbohun.org", password: "cmgs106", 
+                    fullName: "Ajayi Convenant", regNumber: "EGAM/2025/CM/106", 
+                    category: "Technical", post: "Electrician", image: "cmgs106.jpg"
+                },
+                { 
+                    email: "fadirepo.elizabeth@gbohun.org", password: "cmgs107", 
+                    fullName: "Fadirepo Elizabeth", regNumber: "EGAM/2025/CM/107", 
+                    category: "Education", post: "Sunday School Teacher", image: "cmgs107.jpg"
+                }
+            ];
+
+            function showErrorMsg(message) {
+                let existingError = document.getElementById('loginAuthError');
+                if (existingError) existingError.remove();
+                const errorDiv = document.createElement('div');
+                errorDiv.id = 'loginAuthError';
+                errorDiv.className = 'alert alert-danger alert-dismissible fade show mt-2';
+                errorDiv.innerHTML = `<strong>⚠️ Access Denied!</strong> ${message}<button type="button" class="close" data-dismiss="alert"><span>×</span></button>`;
+                const passwordDiv = document.querySelector('#loginForm div:nth-child(3)');
+                if (passwordDiv && passwordDiv.nextSibling) {
+                    passwordDiv.parentNode.insertBefore(errorDiv, passwordDiv.nextSibling.nextSibling);
+                } else {
+                    document.querySelector('#loginForm .text-center.my-2').insertAdjacentElement('afterend', errorDiv);
+                }
+                setTimeout(() => { if (errorDiv && errorDiv.remove) errorDiv.remove(); }, 3500);
+            }
+
+            function handleLogin(event) {
+                event.preventDefault();
+                const emailInput = document.getElementById('loginemail');
+                const passwordInput = document.getElementById('password');
+                const checkbox = document.getElementById('altLoginCheck');
+                const loginBtn = document.getElementById('loginnow');
+
+                if (!checkbox.checked) {
+                    showErrorMsg("Please tick the verification checkbox before signing in.");
+                    loginBtn.innerHTML = 'Log in';
+                    loginBtn.style.backgroundColor = "#d9534f";
+                    loginBtn.disabled = false;
+                    return false;
+                }
+                const enteredEmail = emailInput.value.trim();
+                const enteredPassword = passwordInput.value;
+                if (!enteredEmail || !enteredPassword) {
+                    showErrorMsg("Please fill in both Email Address and Password.");
+                    loginBtn.innerHTML = 'Log in';
+                    loginBtn.style.backgroundColor = "#d9534f";
+                    return false;
+                }
+                const matchedUser = validUsers.find(u => u.email.toLowerCase() === enteredEmail.toLowerCase() && u.password === enteredPassword);
+                if (matchedUser) {
+                    // Store complete user data (including extra fields for dashboard)
+                    localStorage.setItem('loggedInUser', JSON.stringify({
+                        email: matchedUser.email,
+                        fullName: matchedUser.fullName,
+                        regNumber: matchedUser.regNumber,
+                        category: matchedUser.category,
+                        post: matchedUser.post,
+                        image: matchedUser.image
+                    }));
+                    loginBtn.innerHTML = '<span class="spinner-grow spinner-grow-sm text-light"></span>&nbsp;&nbsp;Redirecting...';
+                    loginBtn.style.backgroundColor = "#28a745";
+                    loginBtn.disabled = true;
+                    setTimeout(() => { window.location.href = "dashboard.html"; }, 400);
+                } else {
+                    showErrorMsg("Invalid email or password. Please check your credentials.");
+                    loginBtn.innerHTML = 'Log in';
+                    loginBtn.style.backgroundColor = "#d9534f";
+                    loginBtn.disabled = false;
+                }
+                return false;
+            }
+
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            document.getElementById('loginnow').addEventListener('click', handleLogin);
+            document.getElementById('currentYear').innerText = new Date().getFullYear();
+        })();
+
+    </script>
+
+</body>
+</html>
