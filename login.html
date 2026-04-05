@@ -14,7 +14,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet">
     <style>
-        /* Aligned with dashboard.html – dark red background, watermark, header */
         * {
             margin: 0;
             padding: 0;
@@ -29,7 +28,7 @@
             display: flex;
             flex-direction: column;
         }
-        /* Watermark logo background (same as dashboard) */
+        /* Watermark logo background */
         body::before {
             content: "";
             position: fixed;
@@ -43,30 +42,38 @@
             z-index: 0;
             pointer-events: none;
         }
-        /* Header with logo and marquee (identical to dashboard) */
+        /* Header: centered logo + marquee below */
         .site-header {
             background: #8b0000;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            padding: 25px 20px 15px;
+            text-align: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             position: relative;
             z-index: 2;
         }
+        .logo-container {
+            margin-bottom: 15px;
+        }
         .logo-container img {
-            max-height: 70px;
-            width: auto;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #ffd966;
+            background: white;
+            padding: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         .marquee-wrapper {
-            flex: 1;
-            margin-left: 20px;
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
             overflow: hidden;
             white-space: nowrap;
-            background: rgba(255,215,0,0.2);
-            padding: 8px 15px;
-            border-radius: 40px;
+            background: rgba(255,215,0,0.25);
+            padding: 10px 15px;
+            border-radius: 50px;
+            border: 1px solid #ffd966;
         }
         .marquee-text {
             display: inline-block;
@@ -141,7 +148,7 @@
             font-size: 13px;
             padding: 8px 12px;
         }
-        /* Footer (same as dashboard) */
+        /* Footer */
         .portal-footer {
             text-align: center;
             padding: 15px 0;
@@ -157,14 +164,14 @@
             margin-bottom: 5px;
         }
         @media (max-width: 768px) {
-            .site-header { flex-direction: column; text-align: center; }
-            .marquee-wrapper { margin-left: 0; margin-top: 10px; width: 100%; }
+            .logo-container img { width: 90px; height: 90px; }
+            .marquee-text { font-size: 1rem; }
             .login_wrapper { width: 95%; }
         }
     </style>
 </head>
 <body>
-    <!-- Header: same as dashboard -->
+    <!-- Header: centered circular logo + marquee below -->
     <div class="site-header">
         <div class="logo-container">
             <img src="img/egamlogo.png" alt="EGAM Ministry Logo">
@@ -189,7 +196,7 @@
                             <input type="password" name="userPASSWORD" id="password" class="form-control" placeholder="Password" required>
                         </div>
 
-                        <!-- Security lock icon (kept from original) -->
+                        <!-- Security lock icon -->
                         <div class="text-center my-2">
                             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d9534f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'%3E%3C/path%3E%3C/svg%3E" alt="Secure" width="28" height="28">
                             <span class="text-muted small">🔒 Secured Portal</span>
@@ -231,70 +238,35 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        
         (function() {
             // ========== ENHANCED USER ARRAY (includes all fields expected by dashboard) ==========
             const validUsers = [
                 { 
                     email: "admin@gbohunalore.org", password: "admin123", 
                     fullName: "Administrator", regNumber: "EGAM/2025/ADMIN/001", 
-                    category: "Administration", post: "Portal Manager", image: "admin.png"
+                    category: "Administration", post: "Portal Manager", image: "Go.png"
                 },
                 { 
                     email: "gbohun@alore.org", password: "gbohun123", 
                     fullName: "Gbohun Alore", regNumber: "EGAM/2025/GB/002", 
-                    category: "Vocational", post: "Music Minister", image: "gbohun.jpg"
+                    category: "Vocational", post: "Music Minister", image: "success.png"
                 },
                 { 
                     email: "user@example.com", password: "userpass", 
                     fullName: "Test User", regNumber: "EGAM/2025/TEST/003", 
-                    category: "Technical", post: "IT Support", image: "default-avatar.png"
+                    category: "Technical", post: "IT Support", image: "ayo.png"
                 },
                 { 
                     email: "test@church.org", password: "test123", 
                     fullName: "Church Worker", regNumber: "EGAM/2025/CH/004", 
-                    category: "Volunteer", post: "Usher", image: "test-image.jpg"
+                    category: "Volunteer", post: "Usher", image: "mum.jpg"
                 },
                 { 
                     email: "phil@web.com", password: "phil123", 
                     fullName: "Philip Web", regNumber: "EGAM/2025/DEV/005", 
-                    category: "ICT", post: "Web Developer", image: "phil-web.png"
-                },
-                { 
-                    email: "felix.victor@gbohun.org", password: "cmgs101", 
-                    fullName: "Felix Victor", regNumber: "EGAM/2025/CM/101", 
-                    category: "Counseling", post: "Guidance Counselor", image: "cmgs101.jpg"
-                },
-                { 
-                    email: "alpha.trinity@gbohun.org", password: "cmgs102", 
-                    fullName: "Alpha Trinity", regNumber: "EGAM/2025/CM/102", 
-                    category: "Theology", post: "Bible Teacher", image: "cmgs102.jpg"
-                },
-                { 
-                    email: "ogundipe.seun@gbohun.org", password: "cmgs103", 
-                    fullName: "Ogundipe Seun", regNumber: "EGAM/2025/CM/103", 
-                    category: "Media", post: "Sound Engineer", image: "cmgs103.jpg"
-                },
-                { 
-                    email: "abiodun.darasimi@gbohun.org", password: "cmgs104", 
-                    fullName: "Abiodun Darasimi", regNumber: "EGAM/2025/CM/104", 
-                    category: "Welfare", post: "Social Worker", image: "cmgs104.jpg"
-                },
-                { 
-                    email: "ibegbu.emmanuel@gbohun.org", password: "cmgs105", 
-                    fullName: "Ibegbu Emmanuel", regNumber: "EGAM/2025/CM/105", 
-                    category: "Administration", post: "Secretary", image: "cmgs105.jpg"
-                },
-                { 
-                    email: "ajayi.convenant@gbohun.org", password: "cmgs106", 
-                    fullName: "Ajayi Convenant", regNumber: "EGAM/2025/CM/106", 
-                    category: "Technical", post: "Electrician", image: "cmgs106.jpg"
-                },
-                { 
-                    email: "fadirepo.elizabeth@gbohun.org", password: "cmgs107", 
-                    fullName: "Fadirepo Elizabeth", regNumber: "EGAM/2025/CM/107", 
-                    category: "Education", post: "Sunday School Teacher", image: "cmgs107.jpg"
+                    category: "ICT", post: "Web Developer", image: "admin.png"
                 }
+               
             ];
 
             function showErrorMsg(message) {
@@ -363,8 +335,6 @@
             document.getElementById('loginnow').addEventListener('click', handleLogin);
             document.getElementById('currentYear').innerText = new Date().getFullYear();
         })();
-
     </script>
-
 </body>
 </html>

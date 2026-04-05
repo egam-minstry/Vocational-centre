@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>EGAM Ministry Portal | Dashboard</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23b22234'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='gold' font-weight='bold'%3EGA%3C/text%3E%3C/svg%3E" type="image/x-icon">
-    <!-- Bootstrap + Font Awesome + Custom Styles -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.mCustomScrollbar/3.1.5/jquery.mCustomScrollbar.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -37,75 +35,84 @@
             z-index: 0;
             pointer-events: none;
         }
-        /* Header area with logo and marquee */
+        /* Header area */
         .site-header {
             background: #8b0000;
-            padding: 15px 20px;
+            padding: 12px 15px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1100;
         }
         .logo-container img {
-            max-height: 70px;
+            max-height: 55px;
             width: auto;
         }
         .marquee-wrapper {
             flex: 1;
-            margin-left: 20px;
+            margin-left: 15px;
             overflow: hidden;
-            white-space: nowrap;
             background: rgba(255,215,0,0.2);
-            padding: 8px 15px;
+            padding: 6px 12px;
             border-radius: 40px;
         }
         .marquee-text {
             display: inline-block;
             color: #ffd966;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: bold;
+            white-space: nowrap;
             animation: marquee 12s linear infinite;
-            padding-left: 100%;
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-100%); }
         }
-        /* Sidebar & main container */
-        .main_container {
-            display: flex;
-            min-height: calc(100vh - 80px);
-        }
+        /* Sidebar (fixed, toggleable) */
         .left_col {
             background: #2A3F54;
             width: 250px;
             position: fixed;
-            height: 100%;
-            overflow-y: auto;
             top: 80px;
+            left: 0;
+            bottom: 0;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            z-index: 1050;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
         }
+        /* When sidebar is hidden (mobile) */
+        .left_col.hide-sidebar {
+            left: -250px;
+        }
+        /* Main content area */
         .right_col {
             margin-left: 250px;
             padding: 20px;
-            width: calc(100% - 250px);
+            transition: margin 0.3s ease;
             margin-top: 80px;
         }
+        /* Top navigation bar */
         .top_nav {
             background: #EDEDED;
-            padding: 0 20px;
+            padding: 0 15px;
             position: fixed;
             top: 80px;
             right: 0;
             left: 250px;
-            z-index: 1000;
+            z-index: 1030;
             height: 55px;
             line-height: 55px;
             box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            transition: left 0.3s ease;
         }
         .nav_menu {
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
         .profile img {
             border-radius: 50%;
@@ -132,10 +139,12 @@
         .menu_section {
             margin-top: 20px;
         }
+        /* Cards */
         .card {
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             transition: transform 0.2s;
+            margin-bottom: 20px;
         }
         .card:hover {
             transform: translateY(-3px);
@@ -154,17 +163,75 @@
             border-radius: 12px;
             font-size: 14px;
         }
+        /* Overlay for mobile sidebar */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1040;
+            display: none;
+        }
+        /* Responsive */
         @media (max-width: 768px) {
-            .left_col { width: 70px; top: 120px; }
-            .right_col, .top_nav { margin-left: 70px; left: 70px; }
-            .site-header { flex-direction: column; text-align: center; }
-            .marquee-wrapper { margin-left: 0; margin-top: 10px; width: 100%; }
+            .site-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .marquee-wrapper {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%;
+            }
+            .marquee-text {
+                font-size: 0.85rem;
+                animation-duration: 10s;
+            }
+            .left_col {
+                top: 120px;
+            }
+            .right_col, .top_nav {
+                margin-left: 0;
+                left: 0;
+            }
+            .top_nav {
+                left: 0;
+            }
+            .right_col {
+                margin-top: 135px;
+            }
+            /* When sidebar is shown on mobile, push content? We'll use overlay and absolute positioning */
+            .left_col.show-sidebar {
+                left: 0;
+            }
+            .sidebar-overlay.show {
+                display: block;
+            }
+            .card-body h5 {
+                font-size: 1rem;
+            }
+            footer span {
+                display: block;
+                float: none !important;
+                text-align: center;
+                margin-bottom: 5px;
+            }
+        }
+        @media (max-width: 576px) {
+            .right_col {
+                padding: 15px;
+            }
+            .card-footer {
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- HEADER with Logo and Marquee -->
+<!-- HEADER -->
 <div class="site-header">
     <div class="logo-container">
         <img src="img/egamlogo.png" alt="EGAM Ministry Logo">
@@ -174,9 +241,12 @@
     </div>
 </div>
 
+<!-- Sidebar Overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
 <div class="main_container">
     <!-- SIDEBAR -->
-    <div class="left_col">
+    <div class="left_col" id="sidebar">
         <div class="profile clearfix mt-3 text-center">
             <img id="sidebarAvatar" src="img/default-avatar.png" alt="Avatar" class="rounded-circle" width="70" height="70">
             <div class="text-white mt-2 font-weight-bold"><span id="sidebarName">User</span></div>
@@ -197,10 +267,10 @@
     <div class="top_nav">
         <div class="nav_menu">
             <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                <a id="menu_toggle" href="#"><i class="fa fa-bars"></i></a>
             </div>
             <ul class="navbar-nav flex-row">
-                <li class="nav-item mr-3">
+                <li class="nav-item mr-3 d-none d-sm-block">
                     <h5 class="text-danger mb-0"><img src="img/egamlogo.png" alt="Logo" height="35" width="35"> <span class="text-success">EGAM MINISTRY Portal</span></h5>
                 </li>
                 <li class="nav-item dropdown">
@@ -219,7 +289,7 @@
     <!-- MAIN CONTENT -->
     <div class="right_col">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body text-center">
                         <img id="profileImage" src="img/default-avatar.png" class="rounded-circle" width="120" height="120">
@@ -230,8 +300,8 @@
             </div>
         </div>
 
-        <div class="row mt-4">
-            <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-12">
                 <div class="card">
                     <div class="card-body text-danger text-center">
                         <h5 id="regNumberDisplay">EGAM/2025/XXXX</h5>
@@ -239,7 +309,7 @@
                     <div class="card-footer">Your Registration Number</div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-6 col-12">
                 <div class="card">
                     <div class="card-body text-danger text-center">
                         <h5 id="categoryDisplay">Vocational Category</h5>
@@ -247,7 +317,7 @@
                     <div class="card-footer">Your Category</div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-body text-danger text-center">
                         <h5 id="postDisplay">Applied Post</h5>
@@ -268,36 +338,74 @@
 <!-- SCRIPTS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mCustomScrollbar/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 <script>
     $(document).ready(function() {
-        // Retrieve logged-in user data from localStorage (set by login.html)
+        // Sidebar toggle functionality
+        const $sidebar = $('#sidebar');
+        const $overlay = $('#sidebarOverlay');
+        const $menuToggle = $('#menu_toggle');
+        
+        function closeSidebar() {
+            $sidebar.removeClass('show-sidebar');
+            $sidebar.addClass('hide-sidebar');
+            $overlay.removeClass('show');
+        }
+        
+        function openSidebar() {
+            $sidebar.removeClass('hide-sidebar');
+            $sidebar.addClass('show-sidebar');
+            $overlay.addClass('show');
+        }
+        
+        // On window resize, if screen becomes larger than 768px, ensure sidebar is visible
+        function handleResize() {
+            if (window.innerWidth > 768) {
+                $sidebar.removeClass('hide-sidebar show-sidebar');
+                $overlay.removeClass('show');
+            } else {
+                // On mobile, start with sidebar hidden
+                if (!$sidebar.hasClass('show-sidebar')) {
+                    $sidebar.addClass('hide-sidebar');
+                }
+            }
+        }
+        
+        $menuToggle.on('click', function(e) {
+            e.preventDefault();
+            if ($sidebar.hasClass('hide-sidebar') || $sidebar.hasClass('show-sidebar') === false) {
+                openSidebar();
+            } else {
+                closeSidebar();
+            }
+        });
+        
+        $overlay.on('click', function() {
+            closeSidebar();
+        });
+        
+        $(window).on('resize', handleResize);
+        handleResize();
+        
+        // User data from localStorage
         const userData = JSON.parse(localStorage.getItem('loggedInUser'));
         if (!userData) {
-            // No active session – redirect to login page
             window.location.href = "index.html";
             return;
         }
-
-        // Determine profile image path: if userData.image is a relative path like "admin.png", prepend "img/"
+        
         let userImage = userData.image || "img/default-avatar.png";
         if (userImage && !userImage.startsWith('img/') && !userImage.startsWith('data:')) {
             userImage = "img/" + userImage;
         }
-
-        // Update all avatar/image elements
-        $("#sidebarAvatar, #topAvatar, #profileImage").attr("src", userImage);
         
-        // Display user name (fullName or email prefix)
+        $("#sidebarAvatar, #topAvatar, #profileImage").attr("src", userImage);
         const displayName = userData.fullName || (userData.email ? userData.email.split('@')[0] : "User");
         $("#sidebarName, #topUserName, #userFullName").text(displayName);
         
-        // Fill dashboard cards with user data
         $("#regNumberDisplay").text(userData.regNumber || "Not Assigned");
         $("#categoryDisplay").text(userData.category || "General");
         $("#postDisplay").text(userData.post || "Member");
         
-        // Logout handlers
         $("#logoutBtn, #logoutTop").on("click", function(e) {
             e.preventDefault();
             localStorage.removeItem('loggedInUser');
