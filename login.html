@@ -1,340 +1,197 @@
+<!-- ========================= -->
+<!-- COMPLETE login.html -->
+<!-- ========================= -->
+<!--
+//https://console.firebase.google.com/u/0/project/exam-records-system/overview-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>EGAM Ministry | Login</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23b22234'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='gold' font-weight='bold'%3EGA%3C/text%3E%3C/svg%3E" type="image/x-icon">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
-    <!-- Bootstrap + Font Awesome + Animate -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Source Sans Pro', sans-serif;
-            background-color: darkred;
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        /* Watermark logo background */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('img/egamlogo.png') no-repeat center center;
-            background-size: 300px 300px;
-            opacity: 0.08;
-            z-index: 0;
-            pointer-events: none;
-        }
-        /* Header: centered logo + marquee below */
-        .site-header {
-            background: #8b0000;
-            padding: 25px 20px 15px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 2;
-        }
-        .logo-container {
-            margin-bottom: 15px;
-        }
-        .logo-container img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid #ffd966;
-            background: white;
-            padding: 5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        .marquee-wrapper {
-            width: 90%;
-            max-width: 800px;
-            margin: 0 auto;
-            overflow: hidden;
-            white-space: nowrap;
-            background: rgba(255,215,0,0.25);
-            padding: 10px 15px;
-            border-radius: 50px;
-            border: 1px solid #ffd966;
-        }
-        .marquee-text {
-            display: inline-block;
-            color: #ffd966;
-            font-size: 1.2rem;
-            font-weight: bold;
-            animation: marquee 12s linear infinite;
-            padding-left: 100%;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-        /* Login card container – centered with proper spacing */
-        .login-wrapper {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-            position: relative;
-            z-index: 2;
-        }
-        .login_wrapper {
-            width: 500px;
-            margin: 0 auto;
-        }
-        .login_content {
-            background: #fff;
-            padding: 30px 30px 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        }
-        .login_content h1 {
-            font-size: 24px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 25px;
-            color: #d9534f;
-        }
-        .form-control {
-            border-radius: 4px;
-            margin-bottom: 15px;
-        }
-        .btn-danger {
-            background-color: #d9534f;
-            border-color: #d43f3a;
-            transition: 0.3s;
-        }
-        .btn-danger:hover {
-            background-color: #c9302c;
-            transform: scale(0.98);
-        }
-        .reset_pass {
-            display: block;
-            text-align: right;
-            margin-top: 10px;
-            font-size: 13px;
-        }
-        .checkbox-verify {
-            margin: 15px 0;
-            text-align: center;
-            font-size: 14px;
-            color: #28a745;
-            font-weight: 500;
-        }
-        .checkbox-verify input {
-            margin-right: 8px;
-            transform: scale(1.1);
-        }
-        .alert-danger {
-            font-size: 13px;
-            padding: 8px 12px;
-        }
-        /* Footer */
-        .portal-footer {
-            text-align: center;
-            padding: 15px 0;
-            margin-top: auto;
-            font-size: 14px;
-            color: #ffd966;
-            background: rgba(0,0,0,0.5);
-            border-top: 1px solid #ffd966;
-            position: relative;
-            z-index: 2;
-        }
-        .portal-footer p {
-            margin-bottom: 5px;
-        }
-        @media (max-width: 768px) {
-            .logo-container img { width: 90px; height: 90px; }
-            .marquee-text { font-size: 1rem; }
-            .login_wrapper { width: 95%; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EGAM Ministry | Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    font-family:'Inter',sans-serif;
+    background:linear-gradient(145deg,#6a1a1a 0%,#8b2c2c 100%);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+body::before{
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.08"><path fill="gold" d="M20,20 L30,10 L40,20 L30,30 Z M60,60 L70,50 L80,60 L70,70 Z M70,20 L80,10 L90,20 L80,30 Z M20,70 L30,60 L40,70 L30,80 Z"/><circle cx="50" cy="50" r="6" fill="gold"/></svg>');
+    background-repeat:repeat;
+    background-size:42px;
+    pointer-events:none;
+    z-index:0;
+}
+.site-header{
+    background:rgba(98,0,0,0.95);
+    backdrop-filter:blur(8px);
+    padding:20px;
+    text-align:center;
+    border-bottom:3px solid #f5c542;
+    position:relative;
+    z-index:10;
+}
+.logo-container img{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    border:4px solid #f5c542;
+    background:white;
+    padding:5px;
+}
+.login-wrapper{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+    position:relative;
+    z-index:2;
+}
+.login-card{
+    background:white;
+    border-radius:30px;
+    padding:45px;
+    max-width:500px;
+    width:100%;
+    box-shadow:0 25px 45px rgba(0,0,0,0.3);
+}
+.login-card h1{
+    font-family:'Playfair Display',serif;
+    color:#9e2a2a;
+    font-weight:700;
+    text-align:center;
+}
+.form-control{
+    border-radius:25px;
+    padding:12px 20px;
+    margin-bottom:18px;
+    border:1px solid #e0cfcf;
+}
+.btn-login{
+    background:linear-gradient(95deg,#b54535,#9b2c1c);
+    border:none;
+    padding:14px;
+    border-radius:40px;
+    color:white;
+    font-weight:600;
+    width:100%;
+    transition:transform 0.2s;
+}
+.btn-login:hover{transform:translateY(-2px);}
+.checkbox-verify{margin:15px 0;}
+.portal-footer{
+    background:rgba(0,0,0,0.6);
+    color:gold;
+    text-align:center;
+    padding:15px;
+    position:relative;
+    z-index:2;
+}
+@media(max-width:576px){
+    .login-card{padding:30px 20px;}
+    .logo-container img{width:80px;height:80px;}
+}
+</style>
 </head>
 <body>
-    <!-- Header: centered circular logo + marquee below -->
-    <div class="site-header">
-        <div class="logo-container">
-            <img src="img/egamlogo.png" alt="EGAM Ministry Logo">
-        </div>
-        <div class="marquee-wrapper">
-            <div class="marquee-text">🎓 EGAM VOCATIONAL CENTRE : IN CHRIST WE HOPE, IN HIM WE GLORY 🎓</div>
-        </div>
+<div class="site-header">
+  <div class="logo-container">
+    <img src="img/egamlogo.png" onerror="this.src='https://placehold.co/100x100?text=EGAM'">
+  </div>
+  <div class="marquee-wrapper" style="width:90%;max-width:850px;margin:15px auto 0;overflow:hidden;background:rgba(255,215,0,0.12);border-radius:60px;padding:10px;">
+    <div class="marquee-text" style="color:#ffeaac;animation:marqueeScroll 18s linear infinite;white-space:nowrap;">🎓 EGAM VOCATIONAL CENTRE : IN CHRIST WE HOPE, IN HIM WE GLORY 🎓</div>
+    <a href="index.html">Home</a>
+  </div>
+</div>
+<style>@keyframes marqueeScroll{0%{transform:translateX(0%);}100%{transform:translateX(-100%);}}</style>
+<div class="login-wrapper">
+  <div class="login-card">
+    <h1>EGAM MINISTRY</h1>
+    <p class="text-center text-muted">Vocational & Entrepreneurship Portal</p>
+    <form id="loginForm">
+      <input type="email" id="email" class="form-control" placeholder="Email Address" required>
+      <input type="password" id="password" class="form-control" placeholder="Password" required>
+      <div class="checkbox-verify">
+        <label><input type="checkbox" id="verifyCheck"> Verify before login</label>
+      </div>
+      <button type="submit" class="btn-login" id="loginBtn"><i class="fas fa-sign-in-alt me-2"></i> Sign In</button>
+    </form>
+    <hr>
+    <div class="text-center">
+      <p>Don't have an account?</p>
+      <a href="register.html" class="btn btn-outline-danger rounded-pill px-4">Register Here</a>
     </div>
+  </div>
+</div>
+<div class="portal-footer">
+  <p>© 2026 EGAM Ministry. All Rights Reserved.</p>
+  <p>Empowering Lives Through Faith & Technology</p>
+</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    <!-- Login Form Card -->
-    <div class="login-wrapper">
-        <div class="login_wrapper">
-            <div class="animate form login_form">
-                <section class="login_content">
-                    <form id="loginForm" name="loginForm" method="POST" action="#">
-                        <h1>EGAM MINISTRY</h1>
-                        
-                        <div>
-                            <input type="email" name="emailADDRESS" id="loginemail" class="form-control" placeholder="Email Address / Username" required>
-                        </div>
-                        <div>
-                            <input type="password" name="userPASSWORD" id="password" class="form-control" placeholder="Password" required>
-                        </div>
+const firebaseConfig = {
+  apiKey: "AIzaSyA1tQE9cGdP7utPLWqHZjkAgySmaCv2foI",
+  authDomain: "egam-ministry.firebaseapp.com",
+  projectId: "egam-ministry",
+  storageBucket: "egam-ministry.firebasestorage.app",
+  messagingSenderId: "276171392995",
+  appId: "1:276171392995:web:852e81ad481cd1cf0042d6",
+  measurementId: "G-MXN0KLPJGX"
+};
 
-                        <!-- Security lock icon -->
-                        <div class="text-center my-2">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d9534f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'%3E%3C/path%3E%3C/svg%3E" alt="Secure" width="28" height="28">
-                            <span class="text-muted small">🔒 Secured Portal</span>
-                        </div>
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const form = document.getElementById("loginForm");
 
-                        <!-- Checkbox verification -->
-                        <div class="checkbox-verify">
-                            <label style="color: #28a745; font-size: 15px;">
-                                <input type="checkbox" id="altLoginCheck">
-                                Click the checkbox to verify and click on Sign In
-                            </label>
-                        </div>
-
-                        <div>
-                            <button class="btn btn-danger w-100" id="loginnow" type="submit">Log in</button>
-                        </div>
-
-                        <a class="reset_pass" href="#">Lost your password?</a>
-                        <div class="clearfix"></div>
-                        <hr>
-                        <div class="text-center">
-                            <h5 class="text-danger">GBOHUN ALORE <span class="text-success font-weight-bolder">PORTAL</span></h5>
-                            <p>©2025 All Rights Reserved. <strong>Jesus the way of life Gospel Church</strong>. Privacy and Terms</p>
-                            <p style="font-size:10px; color:red">Developed by: phil web solutions</p>
-                        </div>
-                    </form>
-                </section>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="portal-footer">
-        <p>&copy; <span id="currentYear"></span> EGAM Ministry. All rights reserved.</p>
-        <p class="small">Empowering lives through faith and technology</p>
-    </footer>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        (function() {
-            // ========== ENHANCED USER ARRAY (includes all fields expected by dashboard) ==========
-            const validUsers = [
-                { 
-                    email: "admin@gbohunalore.org", password: "admin123", 
-                    fullName: "Administrator", regNumber: "EGAM/2025/ADMIN/001", 
-                    category: "Administration", post: "Portal Manager", image: "Go.png"
-                },
-                { 
-                    email: "gbohun@alore.org", password: "gbohun123", 
-                    fullName: "Gbohun Alore", regNumber: "EGAM/2025/GB/002", 
-                    category: "Vocational", post: "Music Minister", image: "success.png"
-                },
-                { 
-                    email: "user@example.com", password: "userpass", 
-                    fullName: "Test User", regNumber: "EGAM/2025/TEST/003", 
-                    category: "Technical", post: "IT Support", image: "ayo.png"
-                },
-                { 
-                    email: "test@church.org", password: "test123", 
-                    fullName: "Church Worker", regNumber: "EGAM/2025/CH/004", 
-                    category: "Volunteer", post: "Usher", image: "mum.jpg"
-                },
-                { 
-                    email: "phil@web.com", password: "phil123", 
-                    fullName: "Philip Web", regNumber: "EGAM/2025/DEV/005", 
-                    category: "ICT", post: "Web Developer", image: "admin.png"
-                }
-               
-            ];
-
-            function showErrorMsg(message) {
-                let existingError = document.getElementById('loginAuthError');
-                if (existingError) existingError.remove();
-                const errorDiv = document.createElement('div');
-                errorDiv.id = 'loginAuthError';
-                errorDiv.className = 'alert alert-danger alert-dismissible fade show mt-2';
-                errorDiv.innerHTML = `<strong>⚠️ Access Denied!</strong> ${message}<button type="button" class="close" data-dismiss="alert"><span>×</span></button>`;
-                const passwordDiv = document.querySelector('#loginForm div:nth-child(3)');
-                if (passwordDiv && passwordDiv.nextSibling) {
-                    passwordDiv.parentNode.insertBefore(errorDiv, passwordDiv.nextSibling.nextSibling);
-                } else {
-                    document.querySelector('#loginForm .text-center.my-2').insertAdjacentElement('afterend', errorDiv);
-                }
-                setTimeout(() => { if (errorDiv && errorDiv.remove) errorDiv.remove(); }, 3500);
-            }
-
-            function handleLogin(event) {
-                event.preventDefault();
-                const emailInput = document.getElementById('loginemail');
-                const passwordInput = document.getElementById('password');
-                const checkbox = document.getElementById('altLoginCheck');
-                const loginBtn = document.getElementById('loginnow');
-
-                if (!checkbox.checked) {
-                    showErrorMsg("Please tick the verification checkbox before signing in.");
-                    loginBtn.innerHTML = 'Log in';
-                    loginBtn.style.backgroundColor = "#d9534f";
-                    loginBtn.disabled = false;
-                    return false;
-                }
-                const enteredEmail = emailInput.value.trim();
-                const enteredPassword = passwordInput.value;
-                if (!enteredEmail || !enteredPassword) {
-                    showErrorMsg("Please fill in both Email Address and Password.");
-                    loginBtn.innerHTML = 'Log in';
-                    loginBtn.style.backgroundColor = "#d9534f";
-                    return false;
-                }
-                const matchedUser = validUsers.find(u => u.email.toLowerCase() === enteredEmail.toLowerCase() && u.password === enteredPassword);
-                if (matchedUser) {
-                    // Store complete user data (including extra fields for dashboard)
-                    localStorage.setItem('loggedInUser', JSON.stringify({
-                        email: matchedUser.email,
-                        fullName: matchedUser.fullName,
-                        regNumber: matchedUser.regNumber,
-                        category: matchedUser.category,
-                        post: matchedUser.post,
-                        image: matchedUser.image
-                    }));
-                    loginBtn.innerHTML = '<span class="spinner-grow spinner-grow-sm text-light"></span>&nbsp;&nbsp;Redirecting...';
-                    loginBtn.style.backgroundColor = "#28a745";
-                    loginBtn.disabled = true;
-                    setTimeout(() => { window.location.href = "dashboard.html"; }, 400);
-                } else {
-                    showErrorMsg("Invalid email or password. Please check your credentials.");
-                    loginBtn.innerHTML = 'Log in';
-                    loginBtn.style.backgroundColor = "#d9534f";
-                    loginBtn.disabled = false;
-                }
-                return false;
-            }
-
-            document.getElementById('loginForm').addEventListener('submit', handleLogin);
-            document.getElementById('loginnow').addEventListener('click', handleLogin);
-            document.getElementById('currentYear').innerText = new Date().getFullYear();
-        })();
-    </script>
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const verifyCheck = document.getElementById("verifyCheck");
+  
+  if(!verifyCheck.checked) {
+    Swal.fire('Verification Required', 'Please check the verification box', 'warning');
+    return;
+  }
+  
+  const loginBtn = document.getElementById("loginBtn");
+  loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Signing In...';
+  loginBtn.disabled = true;
+  
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    Swal.fire({
+      title: 'Welcome Back!',
+      text: 'Login successful. Redirecting to dashboard...',
+      icon: 'success',
+      timer: 1500,
+      showConfirmButton: false
+    }).then(() => {
+      window.location.href = "dashboard.html";
+    });
+  } catch(error) {
+    Swal.fire('Login Failed', error.message, 'error');
+    loginBtn.innerHTML = '<i class="fas fa-sign-in-alt me-2"></i> Sign In';
+    loginBtn.disabled = false;
+  }
+});
+</script>
 </body>
 </html>
