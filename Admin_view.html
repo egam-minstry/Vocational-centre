@@ -21,7 +21,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Header Styles */
 .site-header {
     background: #8b0000;
     padding: 12px 20px;
@@ -63,7 +62,6 @@ body {
     100% { transform: translateX(-100%); }
 }
 
-/* Sidebar Styles */
 .sidebar {
     width: 260px;
     background: #2c3e50;
@@ -121,7 +119,6 @@ body {
     width: 24px;
 }
 
-/* Top Navigation */
 .top-nav {
     background: white;
     position: fixed;
@@ -136,7 +133,6 @@ body {
     z-index: 950;
 }
 
-/* Main Content */
 .content {
     margin-left: 260px;
     margin-top: 130px;
@@ -144,7 +140,6 @@ body {
     transition: 0.3s;
 }
 
-/* Stats Cards */
 .stats-card {
     background: white;
     border-radius: 20px;
@@ -169,7 +164,6 @@ body {
     color: #2c3e50;
 }
 
-/* Table Styles */
 .table-container {
     background: white;
     border-radius: 20px;
@@ -206,91 +200,17 @@ body {
 
 .student-table tbody tr:hover {
     background: #f8f9fa;
-    transform: scale(1.01);
 }
 
-.student-table tbody tr:active {
-    background: #e9ecef;
-}
-
-/* Status Badge */
 .status-badge {
     padding: 5px 12px;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
-}
-
-.status-active {
     background: #d4edda;
     color: #155724;
 }
 
-/* Modal Styles */
-.modal-content {
-    border-radius: 20px;
-    border: none;
-}
-
-.modal-header {
-    background: #8b0000;
-    color: white;
-    border-radius: 20px 20px 0 0;
-}
-
-.modal-body {
-    padding: 25px;
-}
-
-.detail-row {
-    display: flex;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.detail-label {
-    font-weight: 700;
-    width: 180px;
-    color: #8b0000;
-}
-
-.detail-value {
-    flex: 1;
-    color: #333;
-}
-
-.profile-img-modal {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 3px solid gold;
-    object-fit: cover;
-    margin: 0 auto 15px;
-}
-
-/* Loading Overlay */
-.loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    display: none;
-}
-
-.loading-spinner {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;
-}
-
-/* Search Bar */
 .search-box {
     position: relative;
     margin-bottom: 20px;
@@ -320,7 +240,44 @@ body {
     color: #8b0000;
 }
 
-/* Responsive */
+.detail-row {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-label {
+    font-weight: 700;
+    width: 180px;
+    color: #8b0000;
+}
+
+.detail-value {
+    flex: 1;
+    color: #333;
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
+}
+
+.loading-spinner {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+}
+
 @media(max-width: 992px) {
     .sidebar {
         left: -260px;
@@ -358,23 +315,11 @@ body {
         margin-top: 180px;
         padding: 15px;
     }
-    .student-table th, 
-    .student-table td {
-        padding: 8px 10px;
-        font-size: 0.85rem;
-    }
-    .detail-row {
-        flex-direction: column;
-    }
-    .detail-label {
-        margin-bottom: 5px;
-    }
 }
 </style>
 </head>
 <body>
 
-<!-- Header -->
 <div class="site-header">
     <div class="logo-container">
         <img src="img/egamlogo.png" onerror="this.src='https://placehold.co/50x50?text=EGAM'">
@@ -384,7 +329,6 @@ body {
     </div>
 </div>
 
-<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
     <div class="profile">
         <img src="img/default.png" id="adminAvatar">
@@ -398,7 +342,6 @@ body {
     </ul>
 </div>
 
-<!-- Top Navigation -->
 <div class="top-nav">
     <div style="display: flex; gap: 10px; align-items: center;">
         <button id="menuToggle" style="background: #2c3e50; border: none; color: white; width: 40px; height: 40px; border-radius: 10px;">
@@ -409,9 +352,7 @@ body {
     <span class="text-muted small"><i class="fas fa-user-shield"></i> Administrator</span>
 </div>
 
-<!-- Main Content -->
 <div class="content">
-    <!-- Stats Cards -->
     <div class="row">
         <div class="col-md-3">
             <div class="stats-card text-center">
@@ -443,7 +384,6 @@ body {
         </div>
     </div>
 
-    <!-- Search and Table -->
     <div class="table-container">
         <div class="search-box">
             <i class="fas fa-search"></i>
@@ -454,14 +394,14 @@ body {
             <table class="student-table">
                 <thead>
                     <tr>
-                        <th><i class="fas fa-hashtag"></i> S/N</th>
-                        <th><i class="fas fa-user"></i> Username</th>
-                        <th><i class="fas fa-envelope"></i> Email</th>
-                        <th><i class="fas fa-id-card"></i> Registration Number</th>
-                        <th><i class="fas fa-tools"></i> Vocational</th>
-                        <th><i class="fas fa-phone"></i> Phone</th>
-                        <th><i class="fas fa-calendar"></i> Date Registered</th>
-                        <th><i class="fas fa-info-circle"></i> Action</th>
+                        <th>S/N</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Registration Number</th>
+                        <th>Vocational</th>
+                        <th>Phone</th>
+                        <th>Date Registered</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="studentsTableBody">
@@ -477,7 +417,6 @@ body {
     </div>
 </div>
 
-<!-- Loading Overlay -->
 <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-spinner">
         <i class="fas fa-spinner fa-spin fa-3x text-danger"></i>
@@ -506,7 +445,6 @@ const auth = getAuth(app);
 
 let allStudents = [];
 
-// Sidebar Toggle
 const sidebar = document.getElementById('sidebar');
 const menuToggle = document.getElementById('menuToggle');
 
@@ -514,23 +452,12 @@ menuToggle.addEventListener('click', () => {
     sidebar.classList.toggle('active');
 });
 
-// Close sidebar when clicking outside on mobile
-document.addEventListener('click', (e) => {
-    if (window.innerWidth <= 992) {
-        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
-            sidebar.classList.remove('active');
-        }
-    }
-});
-
-// Function to convert registration number to image path
 function getImagePathFromRegNumber(registrationNumber) {
     if (!registrationNumber) return null;
     const filename = registrationNumber.replace(/\//g, '-') + '.png';
     return `img/${filename}`;
 }
 
-// Function to show student details modal
 function showStudentDetails(student) {
     const registrationNumber = student.registrationNumber || 'Not Assigned';
     const imagePath = getImagePathFromRegNumber(registrationNumber);
@@ -545,30 +472,29 @@ function showStudentDetails(student) {
                      style="width: 120px; height: 120px; border-radius: 50%; border: 4px solid gold; object-fit: cover; margin-bottom: 15px;">
                 <hr>
                 <div style="text-align: left; max-height: 400px; overflow-y: auto;">
-                    <div class="detail-row"><div class="detail-label"><i class="fas fa-id-card"></i> Registration Number:</div><div class="detail-value"><strong>${registrationNumber}</strong></div></div>
-                    <div class="detail-row"><div class="detail-label"><i class="fas fa-user"></i> Username:</div><div class="detail-value">${student.username}</div></div>
-                    <div class="detail-row"><div class="detail-label"><i class="fas fa-envelope"></i> Email:</div><div class="detail-value">${student.email}</div></div>
-                    <div class="detail-row"><div class="detail-label"><i class="fas fa-phone"></i> Phone Number:</div><div class="detail-value">${student.phone || 'Not provided'}</div></div>
-                    <div class="detail-row"><div class="detail-label"><i class="fas fa-tools"></i> Vocational Category:</div><div class="detail-value">${student.vocational}</div></div>
-                    <div class="detail-row"><div class="detail-label"><i class="fas fa-map-marker-alt"></i> State of Origin:</div><div class="detail-value">${student.state}</div></div>
-                    <div class="detail-row"><div class="detail-label"><i class="fas fa-pray"></i> Religion:</div><div class="detail-value">${student.religion}</div></div>
-                    <div class="detail-row"><div class="detail-label"><i class="fas fa-heart"></i> Marital Status:</div><div class="detail-value">${student.marital}</div></div>
-                    <div class="detail-row"><div class="detail-label"><i class="fas fa-users"></i> Next of Kin:</div><div class="detail-value">${student.nextofkin}</div></div>
-                    <div class="detail-row"><div class="detail-label"><i class="fas fa-mobile-alt"></i> Next of Kin Phone:</div><div class="detail-value">${student.kinphone}</div></div>
-                    <div class="detail-row"><div class="detail-label"><i class="fas fa-home"></i> Address:</div><div class="detail-value">${student.address}</div></div>
-                    <div class="detail-row"><div class="detail-label"><i class="fas fa-calendar-alt"></i> Date of Birth:</div><div class="detail-value">${student.dob}</div></div>
-                    <div class="detail-row"><div class="detail-label"><i class="fas fa-clock"></i> Registered On:</div><div class="detail-value">${new Date(student.createdAt).toLocaleString()}</div></div>
+                    <div class="detail-row"><div class="detail-label">Registration Number:</div><div class="detail-value"><strong>${registrationNumber}</strong></div></div>
+                    <div class="detail-row"><div class="detail-label">Username:</div><div class="detail-value">${student.username}</div></div>
+                    <div class="detail-row"><div class="detail-label">Email:</div><div class="detail-value">${student.email}</div></div>
+                    <div class="detail-row"><div class="detail-label">Phone Number:</div><div class="detail-value">${student.phone || 'Not provided'}</div></div>
+                    <div class="detail-row"><div class="detail-label">Vocational Category:</div><div class="detail-value">${student.vocational}</div></div>
+                    <div class="detail-row"><div class="detail-label">State of Origin:</div><div class="detail-value">${student.state}</div></div>
+                    <div class="detail-row"><div class="detail-label">Religion:</div><div class="detail-value">${student.religion}</div></div>
+                    <div class="detail-row"><div class="detail-label">Marital Status:</div><div class="detail-value">${student.marital}</div></div>
+                    <div class="detail-row"><div class="detail-label">Next of Kin:</div><div class="detail-value">${student.nextofkin}</div></div>
+                    <div class="detail-row"><div class="detail-label">Next of Kin Phone:</div><div class="detail-value">${student.kinphone}</div></div>
+                    <div class="detail-row"><div class="detail-label">Address:</div><div class="detail-value">${student.address}</div></div>
+                    <div class="detail-row"><div class="detail-label">Date of Birth:</div><div class="detail-value">${student.dob}</div></div>
+                    <div class="detail-row"><div class="detail-label">Registered On:</div><div class="detail-value">${new Date(student.createdAt).toLocaleString()}</div></div>
                 </div>
             </div>
         `,
         width: '600px',
         confirmButtonColor: '#8b0000',
-        confirmButtonText: '<i class="fas fa-times"></i> Close',
+        confirmButtonText: 'Close',
         showCloseButton: true
     });
 }
 
-// Function to render students table
 function renderStudentsTable(students) {
     const tbody = document.getElementById('studentsTableBody');
     
@@ -578,25 +504,23 @@ function renderStudentsTable(students) {
     }
     
     tbody.innerHTML = students.map((student, index) => `
-        <tr onclick="window.showStudentDetailsFromGlobal(${index})" style="cursor: pointer;">
+        <tr>
             <td>${index + 1}</td>
             <td><strong>${student.username}</strong></td>
             <td>${student.email}</td>
-            <td><span class="status-badge status-active">${student.registrationNumber || 'Pending'}</span></td>
+            <td><span class="status-badge">${student.registrationNumber || 'Pending'}</span></td>
             <td>${student.vocational}</td>
             <td>${student.phone || 'N/A'}</td>
             <td>${new Date(student.createdAt).toLocaleDateString()}</td>
-            <td><button class="btn btn-sm btn-danger" onclick="event.stopPropagation(); window.showStudentDetailsFromGlobal(${index})"><i class="fas fa-eye"></i> View</button></td>
+            <td><button class="btn btn-sm btn-danger" onclick="window.viewStudent(${index})"><i class="fas fa-eye"></i> View</button></td>
         </tr>
     `).join('');
     
-    // Make showStudentDetailsFromGlobal available globally
-    window.showStudentDetailsFromGlobal = (index) => {
+    window.viewStudent = (index) => {
         showStudentDetails(students[index]);
     };
 }
 
-// Function to load all students from Firestore
 async function loadAllStudents() {
     const loadingOverlay = document.getElementById('loadingOverlay');
     loadingOverlay.style.display = 'flex';
@@ -627,8 +551,8 @@ async function loadAllStudents() {
             });
         });
         
-        // Update stats
         document.getElementById('totalStudents').textContent = allStudents.length;
+        document.getElementById('activeStudents').textContent = allStudents.length;
         
         const currentYear = new Date().getFullYear();
         const thisYearCount = allStudents.filter(s => new Date(s.createdAt).getFullYear() === currentYear).length;
@@ -637,21 +561,23 @@ async function loadAllStudents() {
         const uniqueVocational = [...new Set(allStudents.map(s => s.vocational))];
         document.getElementById('vocationalCount').textContent = uniqueVocational.length;
         
-        document.getElementById('activeStudents').textContent = allStudents.length;
-        
-        // Render table
         renderStudentsTable(allStudents);
         
     } catch (error) {
-        console.error('Error loading students:', error);
-        Swal.fire('Error', 'Failed to load student data: ' + error.message, 'error');
-        document.getElementById('studentsTableBody').innerHTML = '<tr><td colspan="8" class="text-center py-5 text-danger"><i class="fas fa-exclamation-triangle"></i><br>Error loading data</td></tr>';
+        console.error('Error details:', error);
+        let errorMessage = error.message;
+        
+        if (errorMessage.includes('permission-denied') || errorMessage.includes('Missing or insufficient permissions')) {
+            errorMessage = 'Permission denied. Please update Firestore rules to allow reading all users.';
+        }
+        
+        Swal.fire('Error', 'Failed to load student data: ' + errorMessage, 'error');
+        document.getElementById('studentsTableBody').innerHTML = '<tr><td colspan="8" class="text-center py-5 text-danger"><i class="fas fa-exclamation-triangle"></i><br>Error loading data. Please check Firestore rules.</td></tr>';
     } finally {
         loadingOverlay.style.display = 'none';
     }
 }
 
-// Search functionality
 document.getElementById('searchInput').addEventListener('input', (e) => {
     const searchTerm = e.target.value.toLowerCase();
     const filtered = allStudents.filter(student => 
@@ -664,22 +590,18 @@ document.getElementById('searchInput').addEventListener('input', (e) => {
     document.getElementById('totalStudents').textContent = filtered.length;
 });
 
-// Auth check
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
         window.location.href = 'login.html';
         return;
     }
     
-    // Load all students
     await loadAllStudents();
     
-    // Set admin info
     document.getElementById('adminName').textContent = user.email.split('@')[0];
     document.getElementById('adminAvatar').src = `https://ui-avatars.com/api/?background=8b0000&color=fff&name=${encodeURIComponent(user.email.split('@')[0])}`;
 });
 
-// Logout
 document.getElementById('logoutBtn').addEventListener('click', async (e) => {
     e.preventDefault();
     const result = await Swal.fire({
