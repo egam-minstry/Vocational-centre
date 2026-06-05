@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EGAM Ministry | Admin Dashboard - View All Students</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f5f0e8;
+    overflow-x: hidden;
+}
+
+/* Header Styles */
+.site-header {
+    background: #8b0000;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.logo-container img {
+    height: 50px;
+    border-radius: 50%;
+}
+
+.marquee-wrapper {
+    flex: 1;
+    margin-left: 15px;
+    background: rgba(255,215,0,0.2);
+    padding: 8px 15px;
+    border-radius: 40px;
+    overflow: hidden;
+}
+
+.marquee-text {
+    color: #ffd966;
+    font-weight: 600;
+    white-space: nowrap;
+    animation: marquee 15s linear infinite;
+    display: inline-block;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 260px;
+    background: #2c3e50;
+    position: fixed;
+    top: 74px;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto;
+    transition: 0.3s;
+    z-index: 900;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.sidebar .profile {
+    text-align: center;
+    padding: 30px 15px;
+    border-bottom: 1px solid #3e5569;
+}
+
+.sidebar .profile img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid #f5c542;
+    object-fit: cover;
+}
+
+.sidebar .profile h5 {
+    color: white;
+    margin-top: 12px;
+}
+
+.side-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side-menu li a {
+    color: #ecf0f1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.side-menu li a:hover {
+    background: #1a2a3a;
+    padding-left: 28px;
+}
+
+.side-menu li a i {
+    width: 24px;
+}
+
+/* Top Navigation */
+.top-nav {
+    background: white;
+    position: fixed;
+    top: 74px;
+    left: 260px;
+    right: 0;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    z-index: 950;
+}
+
+/* Main Content */
+.content {
+    margin-left: 260px;
+    margin-top: 130px;
+    padding: 25px;
+    transition: 0.3s;
+}
+
+/* Stats Cards */
+.stats-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: transform 0.2s;
+}
+
+.stats-card:hover {
+    transform: translateY(-3px);
+}
+
+.stats-card i {
+    font-size: 2.5rem;
+    color: #8b0000;
+}
+
+.stats-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+/* Table Styles */
+.table-container {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    overflow-x: auto;
+}
+
+.student-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.student-table thead tr {
+    background: #8b0000;
+    color: white;
+}
+
+.student-table th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.student-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.student-table tbody tr {
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.student-table tbody tr:hover {
+    background: #f8f9fa;
+    transform: scale(1.01);
+}
+
+.student-table tbody tr:active {
+    background: #e9ecef;
+}
+
+/* Status Badge */
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-active {
+    background: #d4edda;
+    color: #155724;
+}
+
+/* Modal Styles */
+.modal-content {
+    border-radius: 20px;
+    border: none;
+}
+
+.modal-header {
+    background: #8b0000;
+    color: white;
+    border-radius: 20px 20px 0 0;
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+.detail-row {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-label {
+    font-weight: 700;
+    width: 180px;
+    color: #8b0000;
+}
+
+.detail-value {
+    flex: 1;
+    color: #333;
+}
+
+.profile-img-modal {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid gold;
+    object-fit: cover;
+    margin: 0 auto 15px;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
+}
+
+.loading-spinner {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+/* Search Bar */
+.search-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 20px;
+    padding-left: 45px;
+    border: 2px solid #e0cfcf;
+    border-radius: 25px;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #8b0000;
+    box-shadow: 0 0 0 3px rgba(139,0,0,0.1);
+}
+
+.search-box i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8b0000;
+}
+
+/* Responsive */
+@media(max-width: 992px) {
+    .sidebar {
+        left: -260px;
+    }
+    .sidebar.active {
+        left: 0;
+    }
+    .top-nav {
+        left: 0;
+    }
+    .content {
+        margin-left: 0;
+    }
+    .detail-label {
+        width: 130px;
+    }
+}
+
+@media(max-width: 768px) {
+    .site-header {
+        flex-direction: column;
+    }
+    .marquee-wrapper {
+        margin-left: 0;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .top-nav {
+        top: 110px;
+    }
+    .sidebar {
+        top: 150px;
+    }
+    .content {
+        margin-top: 180px;
+        padding: 15px;
+    }
+    .student-table th, 
+    .student-table td {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+    .detail-row {
+        flex-direction: column;
+    }
+    .detail-label {
+        margin-bottom: 5px;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="site-header">
+    <div class="logo-container">
+        <img src="img/egamlogo.png" onerror="this.src='https://placehold.co/50x50?text=EGAM'">
+    </div>
+    <div class="marquee-wrapper">
+        <div class="marquee-text">🎓 EGAM VOCATIONAL CENTRE : ADMIN PORTAL - VIEW ALL STUDENTS 🎓</div>
+    </div>
+</div>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="profile">
+        <img src="img/default.png" id="adminAvatar">
+        <h5 id="adminName">Admin</h5>
+    </div>
+    <ul class="side-menu">
+        <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="admin_view.html"><i class="fas fa-users"></i> All Students</a></li>
+        <li><a href="#" onclick="window.print()"><i class="fas fa-print"></i> Print Report</a></li>
+        <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</div>
+
+<!-- Top Navigation -->
+<div class="top-nav">
+    <div style="display: flex; gap: 10px; align-items: center;">
+        <button id="menuToggle" style="background: #2c3e50; border: none; color: white; width: 40px; height: 40px; border-radius: 10px;">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h5 class="text-danger m-0">ADMIN PANEL - STUDENT MANAGEMENT</h5>
+    </div>
+    <span class="text-muted small"><i class="fas fa-user-shield"></i> Administrator</span>
+</div>
+
+<!-- Main Content -->
+<div class="content">
+    <!-- Stats Cards -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="stats-card text-center">
+                <i class="fas fa-users"></i>
+                <div class="stats-number" id="totalStudents">0</div>
+                <div class="text-muted">Total Students</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card text-center">
+                <i class="fas fa-church"></i>
+                <div class="stats-number" id="activeStudents">0</div>
+                <div class="text-muted">Active Registrations</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card text-center">
+                <i class="fas fa-calendar"></i>
+                <div class="stats-number" id="thisYear">0</div>
+                <div class="text-muted">This Year</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card text-center">
+                <i class="fas fa-tools"></i>
+                <div class="stats-number" id="vocationalCount">0</div>
+                <div class="text-muted">Vocational Programs</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search and Table -->
+    <div class="table-container">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search by name, email, registration number, or phone...">
+        </div>
+        
+        <div style="overflow-x: auto;">
+            <table class="student-table">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-hashtag"></i> S/N</th>
+                        <th><i class="fas fa-user"></i> Username</th>
+                        <th><i class="fas fa-envelope"></i> Email</th>
+                        <th><i class="fas fa-id-card"></i> Registration Number</th>
+                        <th><i class="fas fa-tools"></i> Vocational</th>
+                        <th><i class="fas fa-phone"></i> Phone</th>
+                        <th><i class="fas fa-calendar"></i> Date Registered</th>
+                        <th><i class="fas fa-info-circle"></i> Action</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsTableBody">
+                    <tr>
+                        <td colspan="8" class="text-center py-5">
+                            <i class="fas fa-spinner fa-spin fa-2x"></i><br>
+                            Loading students data...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin fa-3x text-danger"></i>
+        <p class="mt-3">Loading student details...</p>
+    </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA1tQE9cGdP7utPLWqHZjkAgySmaCv2foI",
+  authDomain: "egam-ministry.firebaseapp.com",
+  projectId: "egam-ministry",
+  storageBucket: "egam-ministry.firebasestorage.app",
+  messagingSenderId: "276171392995",
+  appId: "1:276171392995:web:852e81ad481cd1cf0042d6",
+  measurementId: "G-MXN0KLPJGX"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+let allStudents = [];
+
+// Sidebar Toggle
+const sidebar = document.getElementById('sidebar');
+const menuToggle = document.getElementById('menuToggle');
+
+menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+});
+
+// Close sidebar when clicking outside on mobile
+document.addEventListener('click', (e) => {
+    if (window.innerWidth <= 992) {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+            sidebar.classList.remove('active');
+        }
+    }
+});
+
+// Function to convert registration number to image path
+function getImagePathFromRegNumber(registrationNumber) {
+    if (!registrationNumber) return null;
+    const filename = registrationNumber.replace(/\//g, '-') + '.png';
+    return `img/${filename}`;
+}
+
+// Function to show student details modal
+function showStudentDetails(student) {
+    const registrationNumber = student.registrationNumber || 'Not Assigned';
+    const imagePath = getImagePathFromRegNumber(registrationNumber);
+    const defaultImg = `https://ui-avatars.com/api/?background=8b0000&color=fff&name=${encodeURIComponent(student.username)}&size=200&rounded=true`;
+    
+    Swal.fire({
+        title: `<strong>${student.username}</strong>`,
+        html: `
+            <div style="text-align: center;">
+                <img src="${imagePath}" 
+                     onerror="this.src='${defaultImg}'"
+                     style="width: 120px; height: 120px; border-radius: 50%; border: 4px solid gold; object-fit: cover; margin-bottom: 15px;">
+                <hr>
+                <div style="text-align: left; max-height: 400px; overflow-y: auto;">
+                    <div class="detail-row"><div class="detail-label"><i class="fas fa-id-card"></i> Registration Number:</div><div class="detail-value"><strong>${registrationNumber}</strong></div></div>
+                    <div class="detail-row"><div class="detail-label"><i class="fas fa-user"></i> Username:</div><div class="detail-value">${student.username}</div></div>
+                    <div class="detail-row"><div class="detail-label"><i class="fas fa-envelope"></i> Email:</div><div class="detail-value">${student.email}</div></div>
+                    <div class="detail-row"><div class="detail-label"><i class="fas fa-phone"></i> Phone Number:</div><div class="detail-value">${student.phone || 'Not provided'}</div></div>
+                    <div class="detail-row"><div class="detail-label"><i class="fas fa-tools"></i> Vocational Category:</div><div class="detail-value">${student.vocational}</div></div>
+                    <div class="detail-row"><div class="detail-label"><i class="fas fa-map-marker-alt"></i> State of Origin:</div><div class="detail-value">${student.state}</div></div>
+                    <div class="detail-row"><div class="detail-label"><i class="fas fa-pray"></i> Religion:</div><div class="detail-value">${student.religion}</div></div>
+                    <div class="detail-row"><div class="detail-label"><i class="fas fa-heart"></i> Marital Status:</div><div class="detail-value">${student.marital}</div></div>
+                    <div class="detail-row"><div class="detail-label"><i class="fas fa-users"></i> Next of Kin:</div><div class="detail-value">${student.nextofkin}</div></div>
+                    <div class="detail-row"><div class="detail-label"><i class="fas fa-mobile-alt"></i> Next of Kin Phone:</div><div class="detail-value">${student.kinphone}</div></div>
+                    <div class="detail-row"><div class="detail-label"><i class="fas fa-home"></i> Address:</div><div class="detail-value">${student.address}</div></div>
+                    <div class="detail-row"><div class="detail-label"><i class="fas fa-calendar-alt"></i> Date of Birth:</div><div class="detail-value">${student.dob}</div></div>
+                    <div class="detail-row"><div class="detail-label"><i class="fas fa-clock"></i> Registered On:</div><div class="detail-value">${new Date(student.createdAt).toLocaleString()}</div></div>
+                </div>
+            </div>
+        `,
+        width: '600px',
+        confirmButtonColor: '#8b0000',
+        confirmButtonText: '<i class="fas fa-times"></i> Close',
+        showCloseButton: true
+    });
+}
+
+// Function to render students table
+function renderStudentsTable(students) {
+    const tbody = document.getElementById('studentsTableBody');
+    
+    if (students.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center py-5"><i class="fas fa-folder-open"></i><br>No students found</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = students.map((student, index) => `
+        <tr onclick="window.showStudentDetailsFromGlobal(${index})" style="cursor: pointer;">
+            <td>${index + 1}</td>
+            <td><strong>${student.username}</strong></td>
+            <td>${student.email}</td>
+            <td><span class="status-badge status-active">${student.registrationNumber || 'Pending'}</span></td>
+            <td>${student.vocational}</td>
+            <td>${student.phone || 'N/A'}</td>
+            <td>${new Date(student.createdAt).toLocaleDateString()}</td>
+            <td><button class="btn btn-sm btn-danger" onclick="event.stopPropagation(); window.showStudentDetailsFromGlobal(${index})"><i class="fas fa-eye"></i> View</button></td>
+        </tr>
+    `).join('');
+    
+    // Make showStudentDetailsFromGlobal available globally
+    window.showStudentDetailsFromGlobal = (index) => {
+        showStudentDetails(students[index]);
+    };
+}
+
+// Function to load all students from Firestore
+async function loadAllStudents() {
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    loadingOverlay.style.display = 'flex';
+    
+    try {
+        const usersRef = collection(db, 'users');
+        const q = query(usersRef, orderBy('createdAt', 'desc'));
+        const querySnapshot = await getDocs(q);
+        
+        allStudents = [];
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            allStudents.push({
+                id: doc.id,
+                username: data.username,
+                email: data.email,
+                registrationNumber: data.registrationNumber,
+                vocational: data.vocational,
+                phone: data.phone,
+                state: data.state,
+                religion: data.religion,
+                marital: data.marital,
+                nextofkin: data.nextofkin,
+                kinphone: data.kinphone,
+                address: data.address,
+                dob: data.dob,
+                createdAt: data.createdAt
+            });
+        });
+        
+        // Update stats
+        document.getElementById('totalStudents').textContent = allStudents.length;
+        
+        const currentYear = new Date().getFullYear();
+        const thisYearCount = allStudents.filter(s => new Date(s.createdAt).getFullYear() === currentYear).length;
+        document.getElementById('thisYear').textContent = thisYearCount;
+        
+        const uniqueVocational = [...new Set(allStudents.map(s => s.vocational))];
+        document.getElementById('vocationalCount').textContent = uniqueVocational.length;
+        
+        document.getElementById('activeStudents').textContent = allStudents.length;
+        
+        // Render table
+        renderStudentsTable(allStudents);
+        
+    } catch (error) {
+        console.error('Error loading students:', error);
+        Swal.fire('Error', 'Failed to load student data: ' + error.message, 'error');
+        document.getElementById('studentsTableBody').innerHTML = '<tr><td colspan="8" class="text-center py-5 text-danger"><i class="fas fa-exclamation-triangle"></i><br>Error loading data</td></tr>';
+    } finally {
+        loadingOverlay.style.display = 'none';
+    }
+}
+
+// Search functionality
+document.getElementById('searchInput').addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const filtered = allStudents.filter(student => 
+        student.username.toLowerCase().includes(searchTerm) ||
+        student.email.toLowerCase().includes(searchTerm) ||
+        (student.registrationNumber && student.registrationNumber.toLowerCase().includes(searchTerm)) ||
+        (student.phone && student.phone.toLowerCase().includes(searchTerm))
+    );
+    renderStudentsTable(filtered);
+    document.getElementById('totalStudents').textContent = filtered.length;
+});
+
+// Auth check
+onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+        window.location.href = 'login.html';
+        return;
+    }
+    
+    // Load all students
+    await loadAllStudents();
+    
+    // Set admin info
+    document.getElementById('adminName').textContent = user.email.split('@')[0];
+    document.getElementById('adminAvatar').src = `https://ui-avatars.com/api/?background=8b0000&color=fff&name=${encodeURIComponent(user.email.split('@')[0])}`;
+});
+
+// Logout
+document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+    e.preventDefault();
+    const result = await Swal.fire({
+        title: 'Logout?',
+        text: 'Are you sure you want to logout?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, logout'
+    });
+    
+    if (result.isConfirmed) {
+        await signOut(auth);
+        window.location.href = 'login.html';
+    }
+});
+</script>
+</body>
+</html>
