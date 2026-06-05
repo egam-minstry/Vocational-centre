@@ -21,7 +21,7 @@
         }
         /* Navbar styling */
         .navbar {
-            background: #8b0000 !important; /* deep red */
+            background: #8b0000 !important;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             padding: 12px 20px;
         }
@@ -162,6 +162,61 @@
             font-weight: 600;
             color: #2c2c2c;
         }
+        /* Social Media Section */
+        .social-section {
+            background: linear-gradient(135deg, #8b0000 0%, #a52a2a 100%);
+            border-radius: 20px;
+            padding: 40px 20px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .social-section h3 {
+            color: #ffd966;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: white;
+            color: #8b0000;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .social-icon:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        .social-icon.facebook:hover {
+            background: #1877f2;
+            color: white;
+        }
+        .social-icon.instagram:hover {
+            background: radial-gradient(circle at 30% 110%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            color: white;
+        }
+        .social-icon.tiktok:hover {
+            background: #000000;
+            color: #00f2ea;
+        }
+        .social-label {
+            margin-top: 10px;
+            color: #ffd966;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
         footer {
             background: #1e1e1e;
             color: #ccc;
@@ -172,10 +227,36 @@
         footer a {
             color: #ffd966;
             text-decoration: none;
+            transition: 0.3s;
+        }
+        footer a:hover {
+            color: white;
+        }
+        .footer-social {
+            margin: 15px 0;
+        }
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #333;
+            color: #ffd966;
+            margin: 0 5px;
+            transition: 0.3s;
+        }
+        .footer-social a:hover {
+            background: #ffd966;
+            color: #8b0000;
+            transform: translateY(-3px);
         }
         @media (max-width: 768px) {
             .navbar-brand { font-size: 1.4rem; }
             .admin-img { width: 100px; height: 100px; }
+            .social-icon { width: 55px; height: 55px; font-size: 1.5rem; }
+            .social-label { font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -351,12 +432,44 @@
         </div>
     </div>
 
-    <!-- Contact & About Section (simple) -->
+    <!-- SOCIAL MEDIA CONNECT SECTION - INTEGRATED -->
+    <div class="social-section">
+        <h3><i class="fas fa-share-alt"></i> Connect With Us On Social Media</h3>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/share/18hqDT5Kay/?mibextid=wwXIfr" target="_blank" class="social-icon facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/egam_eic?igsh=OGR6aWd1Mm9senJs&utm_source=qr" target="_blank" class="social-icon instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@egam.eic?_r=1&_t=ZS-96x8hQxO8Qv" target="_blank" class="social-icon tiktok">
+                <i class="fab fa-tiktok"></i>
+            </a>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <div class="social-label">Facebook</div>
+            </div>
+            <div class="col-md-4">
+                <div class="social-label">Instagram</div>
+            </div>
+            <div class="col-md-4">
+                <div class="social-label">TikTok</div>
+            </div>
+        </div>
+        <p class="mt-4" style="color: #ffd966; font-size: 0.9rem;">
+            <i class="fas fa-heart"></i> Follow us for updates, inspirational content, and event announcements!
+        </p>
+    </div>
+
+    <!-- Contact & About Section -->
     <div class="row g-4" id="about">
         <div class="col-md-6">
             <div class="p-4 bg-white rounded-3 shadow-sm">
                 <h4><i class="fas fa-info-circle text-danger"></i> About EGAM Ministry</h4>
                 <p>EGAM Ministry is a faith-based organization committed to spiritual growth, vocational training, and community development. We equip youths and adults with marketable skills while nurturing their relationship with God.</p>
+                <hr>
+                <p><strong>Our Mission:</strong> To raise godly leaders and skilled entrepreneurs who will impact their generation through excellence and integrity.</p>
             </div>
         </div>
         <div class="col-md-6" id="contact">
@@ -366,6 +479,8 @@
                 <p><i class="fas fa-envelope"></i> info@egamministry.org</p>
                 <p><i class="fas fa-phone"></i> +234 80 32 78 16 16</p>
                 <p><i class="fab fa-whatsapp"></i> +234 70-679-045-59</p>
+                <hr>
+                <p><strong>Office Hours:</strong> Monday - Friday: 9:00 AM - 5:00 PM</p>
             </div>
         </div>
     </div>
@@ -375,11 +490,12 @@
 <footer>
     <div class="container">
         <p>&copy; 2026 EGAM Ministry – Church & Vocational Training Centre. All rights reserved.</p>
-        <p>Follow us: 
-            <a href="#"><i class="fab fa-facebook-f mx-2"></i></a>
-            <a href="#"><i class="fab fa-instagram mx-2"></i></a>
-            <a href="#"><i class="fab fa-youtube mx-2"></i></a>
-        </p>
+        <div class="footer-social">
+            <a href="https://www.facebook.com/share/18hqDT5Kay/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/egam_eic?igsh=OGR6aWd1Mm9senJs&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@egam.eic?_r=1&_t=ZS-96x8hQxO8Qv" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p>Follow us on social media for updates, events, and daily inspiration!</p>
         <p class="small">Designed to empower lives for God's glory.</p>
     </div>
 </footer>
